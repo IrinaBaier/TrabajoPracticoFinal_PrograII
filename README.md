@@ -48,3 +48,5 @@ Deberán implementarse todos los conceptos desarrollados durante las clases del 
 
 ### 🎯 Opción 3: Tema Libre
 Desarrollo de un sistema con temática elegida por el grupo, cumpliendo con la totalidad de los requisitos obligatorios.
+
+<img width="1536" height="1024" alt="UML" src="https://github.com/user-attachments/assets/62156e11-342a-4fc4-8f93-05c4411bfa8a" />
