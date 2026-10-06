@@ -31,16 +31,16 @@
 
 Deberán implementarse todos los conceptos desarrollados durante las clases del cuatrimestre:
 
-- [ ] **1. Diagrama UML:** Realización y entrega del diagrama con el diseño de la estructura del sistema. *(OBLIGATORIO)*[cite: 1]
-- [ ] **2. Pilares de la POO:** Aplicación explícita de Herencia, Polimorfismo, Abstracción y Encapsulamiento. *(OBLIGATORIO)*[cite: 1]
-- [ ] **3. Clases Propias:** Creación de un mínimo de 5 clases propias del sistema (no se cuentan la clase `Main`, interfaces ni excepciones). *(OBLIGATORIO)*[cite: 1]
-- [ ] **4. Clases Abstractas e Interfaces:** Creación de al menos 1 clase abstracta y 1 interfaz, ambas efectivamente implementadas. *(OBLIGATORIO)*[cite: 2]
-- [ ] **5. Estructuras de Datos:** Utilización de listas, arreglos o colecciones. *(OBLIGATORIO)*[cite: 2]
-- [ ] **6. Manejo de Excepciones:** Manejo de errores mediante al menos 3 clases de excepción personalizadas. *(OBLIGATORIO)*[cite: 2]
-- [ ] **7. Genericidad:** Creación y uso de al menos una clase genérica. *(OBLIGATORIO)*[cite: 2]
-- [ ] **8. Persistencia de Datos:** Persistencia mediante JDBC, aplicada como mínimo a las 2 o 3 clases principales del sistema (el resto puede manejarse en memoria). *(OBLIGATORIO)*[cite: 2]
-- [ ] **9. Git y GitHub:** Uso activo de Git/GitHub para el versionado de código y trabajo colaborativo. *(OBLIGATORIO)*[cite: 2]
-- [ ] **10. Interfaz Gráfica (GUI):** Implementación de interfaz gráfica con JavaFX (a criterio e investigación autónoma). *(OPCIONAL)*[cite: 2]
+- [ ] **1. Diagrama UML:** Realización y entrega del diagrama con el diseño de la estructura del sistema. *(OBLIGATORIO)*
+- [ ] **2. Pilares de la POO:** Aplicación explícita de Herencia, Polimorfismo, Abstracción y Encapsulamiento. *(OBLIGATORIO)*
+- [ ] **3. Clases Propias:** Creación de un mínimo de 5 clases propias del sistema (no se cuentan la clase `Main`, interfaces ni excepciones). *(OBLIGATORIO)*
+- [ ] **4. Clases Abstractas e Interfaces:** Creación de al menos 1 clase abstracta y 1 interfaz, ambas efectivamente implementadas. *(OBLIGATORIO)*
+- [ ] **5. Estructuras de Datos:** Utilización de listas, arreglos o colecciones. *(OBLIGATORIO)*
+- [ ] **6. Manejo de Excepciones:** Manejo de errores mediante al menos 3 clases de excepción personalizadas. *(OBLIGATORIO)*
+- [ ] **7. Genericidad:** Creación y uso de al menos una clase genérica. *(OBLIGATORIO)*
+- [ ] **8. Persistencia de Datos:** Persistencia mediante JDBC, aplicada como mínimo a las 2 o 3 clases principales del sistema (el resto puede manejarse en memoria). *(OBLIGATORIO)*
+- [ ] **9. Git y GitHub:** Uso activo de Git/GitHub para el versionado de código y trabajo colaborativo. *(OBLIGATORIO)*
+- [ ] **10. Interfaz Gráfica (GUI):** Implementación de interfaz gráfica con JavaFX (a criterio e investigación autónoma). *(OPCIONAL)*
 
 ---
 
