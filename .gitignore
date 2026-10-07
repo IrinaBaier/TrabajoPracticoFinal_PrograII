@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
@@ -38,6 +39,8 @@ build/
 ### Mac OS ###
 .DS_Store
 
+=======
+>>>>>>> 8d8695fbd6fed29fdc7889688f5031bcd6d52193
 # Compiled class file
 *.class
 
@@ -61,4 +64,8 @@ build/
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+<<<<<<< HEAD
 replay_pid*
+=======
+replay_pid*
+>>>>>>> 8d8695fbd6fed29fdc7889688f5031bcd6d52193
