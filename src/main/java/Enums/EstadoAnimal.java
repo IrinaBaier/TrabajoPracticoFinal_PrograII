@@ -1,5 +1,5 @@
 package Enums;
 
-public enum EstadoPerro {
+public enum EstadoAnimal {
     DISPONIBLE, ADOPTADO, NO_DISPONIBLE
 }

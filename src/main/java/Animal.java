@@ -1,11 +1,15 @@
 import java.time.LocalDate;
+import java.util.Objects;
 
 public abstract class Animal {
     private static int contadorId = 1;
     private int id;
+    private int codigo;
     private String nombre;
     private Enums.Edad edad;
     private LocalDate fechaEntrada;
+
+    private Enums.EstadoAnimal estado;
 
     public Animal(String nombre, Enums.Edad edad, LocalDate fechaEntrada) {
         this.id = contadorId++;
@@ -46,6 +50,8 @@ public abstract class Animal {
         this.fechaEntrada = fechaEntrada;
     }
 
+
+
     @Override
     public String toString() {
         return
@@ -53,5 +59,18 @@ public abstract class Animal {
                 ", nombre='" + nombre + '\'' +
                 ", edad=" + edad +
                 ", fechaEntrada=" + fechaEntrada;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Animal animal = (Animal) o;
+        return codigo == animal.codigo;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(codigo);
     }
 }
