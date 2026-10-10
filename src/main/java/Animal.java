@@ -4,10 +4,10 @@ public abstract class Animal {
     private static int contadorId = 1;
     private int id;
     private String nombre;
-    private int edad;
+    private Enums.Edad edad;
     private LocalDate fechaEntrada;
 
-    public Animal(String nombre, int edad, LocalDate fechaEntrada) {
+    public Animal(String nombre, Enums.Edad edad, LocalDate fechaEntrada) {
         this.id = contadorId++;
         this.nombre = nombre;
         this.edad = edad;
@@ -30,11 +30,11 @@ public abstract class Animal {
         this.nombre = nombre;
     }
 
-    public int getEdad() {
+    public Enums.Edad getEdad() {
         return edad;
     }
 
-    public void setEdad(int edad) {
+    public void setEdad(Enums.Edad edad) {
         this.edad = edad;
     }
 
