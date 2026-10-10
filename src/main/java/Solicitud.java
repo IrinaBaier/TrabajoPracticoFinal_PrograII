@@ -1,9 +1,7 @@
 import Enums.EstadoSolicitud;
 import Enums.MotivoRechazo;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class Solicitud {
     private int ID;
