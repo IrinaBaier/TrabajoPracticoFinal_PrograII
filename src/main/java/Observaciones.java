@@ -42,4 +42,6 @@ public class Observaciones {
                 ", Descripcion='" + Descripcion + '\'' +
                 '}';
     }
+
+
 }

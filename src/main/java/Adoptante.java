@@ -117,7 +117,7 @@ public class Adoptante {
         }
        else {
             perro.setEstado(EstadoAnimal.ADOPTADO);
-            Adopcion nuevaAdopcion = new Adopcion(this, perro);
+            Adopcion nuevaAdopcion = new Adopcion();
             this.historialAdopciones.add(nuevaAdopcion);
             return true;
         }
@@ -140,7 +140,7 @@ public class Adoptante {
             return false;
         }
         else{
-        Solicitud nuevaSolicitud = new Solicitud(this, perro);
+        Solicitud nuevaSolicitud = new Solicitud();
         return true;
     }
     }
