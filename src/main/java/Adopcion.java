@@ -1,16 +1,18 @@
-import Enums.MotivoRechazo;
+import Enums.ObservacionSolicitud;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Adopcion {
     private int ID;
     static int contador = 0;
     private LocalDateTime fecha = LocalDateTime.now();
-    private String Observacion;
 
-    public Adopcion(String Observacion) {
+    private final List<Observaciones> observacion = new ArrayList<>();
+
+    public Adopcion() {
         this.ID = contador++;
-        this.Observacion = Observacion;
     }
 
     public int getID() {
@@ -21,13 +23,6 @@ public class Adopcion {
         return fecha;
     }
 
-    public String getObservacion() {
-        return Observacion;
-    }
-
-    public void setObservacion(String observacion) {
-        Observacion = observacion;
-    }
 
     public static int getContador() {
         return contador;
@@ -38,7 +33,6 @@ public class Adopcion {
         return "Adopcion{" +
                 "ID=" + ID +
                 ", fecha=" + fecha +
-                ", Observacion='" + Observacion + '\'' +
                 '}';
     }
 }

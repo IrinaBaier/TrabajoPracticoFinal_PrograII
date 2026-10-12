@@ -1,5 +1,5 @@
 package Enums;
 
-public enum MotivoRechazo {
+public enum ObservacionSolicitud {
     ESPACIO_INSUFICIENTE, FALTA_DE_TIEMPO, INCOMPATIBILIDAD_CON_OTRAS_MASCOTAS, NO_APTO_ECONOMICAMENTE, CONVIVENCIA_NO_PERMITIDA, OTRO
 }

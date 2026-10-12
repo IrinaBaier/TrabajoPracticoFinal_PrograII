@@ -1,5 +1,5 @@
 import Enums.EstadoSolicitud;
-import Enums.MotivoRechazo;
+import Enums.ObservacionSolicitud;
 
 import java.time.LocalDateTime;
 
@@ -8,11 +8,16 @@ public class Solicitud {
     static int contador = 0;
     private LocalDateTime fecha = LocalDateTime.now();
     private EstadoSolicitud estado;
-    private MotivoRechazo motivoRechazo;
+    private ObservacionSolicitud observacionSolicitud;
 
     public Solicitud() {
         this.ID = contador++;
         this.estado = EstadoSolicitud.PENDIENTE;
+        this.observacionSolicitud = ObservacionSolicitud.OTRO;
+    }
+
+    public Solicitud(ObservacionSolicitud observacionSolicitud) {
+        this.observacionSolicitud = observacionSolicitud;
     }
 
     public EstadoSolicitud getEstado() {
@@ -23,12 +28,12 @@ public class Solicitud {
         this.estado = estado;
     }
 
-    public MotivoRechazo getMotivoRechazo() {
-        return motivoRechazo;
+    public ObservacionSolicitud getMotivoRechazo() {
+        return observacionSolicitud;
     }
 
-    public void setMotivoRechazo(MotivoRechazo motivoRechazo) {
-        this.motivoRechazo = motivoRechazo;
+    public void setMotivoRechazo(ObservacionSolicitud observacionSolicitud) {
+        this.observacionSolicitud = observacionSolicitud;
     }
 
     public int getID() {
@@ -45,7 +50,7 @@ public class Solicitud {
                 "ID=" + ID +
                 ", fecha=" + fecha +
                 ", estado=" + estado +
-                ", motivoRechazo=" + motivoRechazo +
+                ", observacionSolicitud=" + observacionSolicitud +
                 '}';
     }
 }
