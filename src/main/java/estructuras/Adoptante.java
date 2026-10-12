@@ -1,4 +1,6 @@
-import Enums.EstadoAnimal;
+package estructuras;
+
+import enums.EstadoAnimal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,7 +91,7 @@ public class Adoptante {
 
     @Override
     public String toString() {
-        return "Adoptante{" +
+        return "estructuras.Adoptante{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", dni=" + dni +
@@ -125,13 +127,14 @@ public class Adoptante {
 
     public boolean validarDatos() {
         if (nombre != null && !nombre.trim().isEmpty() && // .trim para validar que el string no tenga espacios vacios
-                dni >= 10000000 && // Valida que tenga al menos 8 cifras
+                dni >= 1000000 && dni <=99999999 &&// Valida que tenga al menos 8 cifras
                 telefono > 0 && // hay que definir cuantas cifras tiene
                 email != null && email.contains("@") && !email.trim().isEmpty() &&
                 domicilio != null && !domicilio.trim().isEmpty()) {
 
             return true;
         }
+        return false;
     }
 
 

@@ -1,5 +1,7 @@
-import Enums.EstadoSolicitud;
-import Enums.ObservacionSolicitud;
+package estructuras;
+
+import enums.EstadoSolicitud;
+import enums.ObservacionSolicitud;
 
 import java.time.LocalDateTime;
 
@@ -46,7 +48,7 @@ public class Solicitud {
 
     @Override
     public String toString() {
-        return "Solicitud{" +
+        return "estructuras.Solicitud{" +
                 "ID=" + ID +
                 ", fecha=" + fecha +
                 ", estado=" + estado +

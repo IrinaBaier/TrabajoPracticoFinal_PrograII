@@ -1,4 +1,4 @@
-package Gestores;
+package gestores;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -44,7 +44,7 @@ public class MenuAdmin {
                     System.out.println("Adios!! :D");
                     break;
                 default:
-                    System.out.println("Debes ingresar una opción válida");
+                    System.out.println("Tenés que ingresar una opción válida");
                     break;
             }
 

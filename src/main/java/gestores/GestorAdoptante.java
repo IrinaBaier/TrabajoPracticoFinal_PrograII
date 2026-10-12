@@ -1,7 +1,13 @@
-package Gestores;
+package gestores;
+import estructuras.Adopcion;
+import estructuras.Adoptante;
+import estructuras.Perro;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+
+
 
 public class GestorAdoptante {
     List<Adoptante> adoptantes;
