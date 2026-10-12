@@ -1,5 +1,7 @@
-import Enums.Edad;
-import Enums.EstadoAnimal;
+package estructuras;
+
+import enums.Edad;
+import enums.EstadoAnimal;
 
 import java.time.LocalDate;
 import java.util.Objects;

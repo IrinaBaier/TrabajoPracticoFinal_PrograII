@@ -1,6 +1,8 @@
-import Enums.Edad;
-import Enums.Porte;
-import Enums.Temperamento;
+package estructuras;
+
+import enums.Edad;
+import enums.Porte;
+import enums.Temperamento;
 
 import java.time.LocalDate;
 
@@ -45,7 +47,7 @@ public class Perro extends Animal {
 
     @Override
     public String toString() {
-        return "Perro{" +
+        return "estructuras.Perro{" +
                 super.toString() +
                 "raza='" + raza + '\'' +
                 ", porte='" + porte + '\'' +

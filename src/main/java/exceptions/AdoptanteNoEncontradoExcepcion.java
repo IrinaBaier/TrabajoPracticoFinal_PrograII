@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 public class AdoptanteNoEncontradoExcepcion extends RuntimeException {
     public AdoptanteNoEncontradoExcepcion(String message) {

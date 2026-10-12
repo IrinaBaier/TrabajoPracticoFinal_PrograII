@@ -1,3 +1,5 @@
+package estructuras;
+
 import java.time.LocalDateTime;
 
 public class Observaciones {
@@ -36,7 +38,7 @@ public class Observaciones {
 
     @Override
     public String toString() {
-        return "Observaciones{" +
+        return "estructuras.Observaciones{" +
                 "ID=" + ID +
                 ", fecha=" + fecha +
                 ", Descripcion='" + Descripcion + '\'' +

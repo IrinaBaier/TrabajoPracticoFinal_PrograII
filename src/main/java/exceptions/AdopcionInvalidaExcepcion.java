@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 public class AdopcionInvalidaExcepcion extends RuntimeException {
     public AdopcionInvalidaExcepcion(String message) {

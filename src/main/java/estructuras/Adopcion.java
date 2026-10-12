@@ -1,4 +1,4 @@
-import Enums.ObservacionSolicitud;
+package estructuras;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class Adopcion {
 
     @Override
     public String toString() {
-        return "Adopcion{" +
+        return "estructuras.Adopcion{" +
                 "ID=" + ID +
                 ", fecha=" + fecha +
                 '}';
