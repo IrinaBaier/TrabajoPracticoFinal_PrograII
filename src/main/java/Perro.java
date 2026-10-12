@@ -1,3 +1,4 @@
+import Enums.Edad;
 import Enums.Porte;
 import Enums.Temperamento;
 
@@ -5,13 +6,13 @@ import java.time.LocalDate;
 
 public class Perro extends Animal {
     private String raza;
-    private Enums.Porte porte;
-    private Enums.Temperamento temperamento;
+    private Porte porte;
+    private Temperamento temperamento;
 
     public Perro() {
     }
 
-    public Perro(String nombre, Enums.Edad edad, LocalDate fechaEntrada, String raza, Enums.Porte porte, Enums.Temperamento temperamento) {
+    public Perro(String nombre, Edad edad, LocalDate fechaEntrada, String raza, Porte porte, Temperamento temperamento) {
         super(nombre, edad, fechaEntrada);
         this.raza = raza;
         this.porte = porte;

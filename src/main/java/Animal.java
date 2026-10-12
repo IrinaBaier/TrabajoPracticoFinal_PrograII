@@ -1,13 +1,20 @@
+import Enums.Edad;
+import Enums.EstadoAnimal;
+
 import java.time.LocalDate;
+import java.util.Objects;
 
 public abstract class Animal {
     private static int contadorId = 1;
     private int id;
+    private int codigo;
     private String nombre;
-    private Enums.Edad edad;
+    private Edad edad;
     private LocalDate fechaEntrada;
 
-    public Animal(String nombre, Enums.Edad edad, LocalDate fechaEntrada) {
+    private EstadoAnimal estado;
+
+    public Animal(String nombre, Edad edad, LocalDate fechaEntrada) {
         this.id = contadorId++;
         this.nombre = nombre;
         this.edad = edad;
@@ -30,11 +37,11 @@ public abstract class Animal {
         this.nombre = nombre;
     }
 
-    public Enums.Edad getEdad() {
+    public Edad getEdad() {
         return edad;
     }
 
-    public void setEdad(Enums.Edad edad) {
+    public void setEdad(Edad edad) {
         this.edad = edad;
     }
 
@@ -46,6 +53,14 @@ public abstract class Animal {
         this.fechaEntrada = fechaEntrada;
     }
 
+    public EstadoAnimal getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoAnimal estado) {
+        this.estado = estado;
+    }
+
     @Override
     public String toString() {
         return
@@ -53,5 +68,18 @@ public abstract class Animal {
                 ", nombre='" + nombre + '\'' +
                 ", edad=" + edad +
                 ", fechaEntrada=" + fechaEntrada;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Animal animal = (Animal) o;
+        return codigo == animal.codigo;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(codigo);
     }
 }
