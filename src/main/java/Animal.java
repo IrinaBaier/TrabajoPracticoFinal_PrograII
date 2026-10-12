@@ -1,3 +1,6 @@
+import Enums.Edad;
+import Enums.EstadoAnimal;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -6,12 +9,12 @@ public abstract class Animal {
     private int id;
     private int codigo;
     private String nombre;
-    private Enums.Edad edad;
+    private Edad edad;
     private LocalDate fechaEntrada;
 
-    private Enums.EstadoAnimal estado;
+    private EstadoAnimal estado;
 
-    public Animal(String nombre, Enums.Edad edad, LocalDate fechaEntrada) {
+    public Animal(String nombre, Edad edad, LocalDate fechaEntrada) {
         this.id = contadorId++;
         this.nombre = nombre;
         this.edad = edad;
@@ -34,11 +37,11 @@ public abstract class Animal {
         this.nombre = nombre;
     }
 
-    public Enums.Edad getEdad() {
+    public Edad getEdad() {
         return edad;
     }
 
-    public void setEdad(Enums.Edad edad) {
+    public void setEdad(Edad edad) {
         this.edad = edad;
     }
 
@@ -50,7 +53,13 @@ public abstract class Animal {
         this.fechaEntrada = fechaEntrada;
     }
 
+    public EstadoAnimal getEstado() {
+        return estado;
+    }
 
+    public void setEstado(EstadoAnimal estado) {
+        this.estado = estado;
+    }
 
     @Override
     public String toString() {
