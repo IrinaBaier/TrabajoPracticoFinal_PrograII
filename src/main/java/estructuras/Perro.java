@@ -3,10 +3,12 @@ package estructuras;
 import enums.Edad;
 import enums.Porte;
 import enums.Temperamento;
+import interfaces.Adoptable;
+import interfaces.Identificable;
 
 import java.time.LocalDate;
 
-public class Perro extends Animal{
+public class Perro extends Animal implements Adoptable, Identificable {
     private String raza;
     private Porte porte;
     private Temperamento temperamento;
@@ -53,5 +55,20 @@ public class Perro extends Animal{
                 ", porte='" + porte + '\'' +
                 ", temperamento='" + temperamento + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean puedeSerAdoptado() {
+        return false;
+    }
+
+    @Override
+    public void marcarComoDisponible() {
+
+    }
+
+    @Override
+    public void marcarComoNoDisponible() {
+
     }
 }
