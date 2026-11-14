@@ -6,7 +6,7 @@ import enums.Temperamento;
 
 import java.time.LocalDate;
 
-public class Perro extends Animal {
+public class Perro extends Animal{
     private String raza;
     private Porte porte;
     private Temperamento temperamento;

@@ -31,7 +31,7 @@ public class GestorAdoptante {
         return null;
     }
 
-    public boolean modificarAdoptante(int id, String nuevoNombre, int nuevoDni, int nuevoTelefono, String nuevoEmail, String nuevoDomicilio) {
+    public boolean modificarAdoptante(int id, String nuevoNombre, int nuevoDni, String nuevoTelefono, String nuevoEmail, String nuevoDomicilio) {
         Adoptante a = buscarPorId(id);
         if (a != null) {
             a.setNombre(nuevoNombre);

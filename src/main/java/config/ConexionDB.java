@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class ConexionDB {
 
-    private static final String URL = "jdbc:mysql://localHost:3306/scrip";
+    private static final String URL = "jdbc:mysql://localHost:3306/la_manada_de_blaidd";
     private static final String USUARIO = "root";
     private static final String CLAVE = "1234";
 
