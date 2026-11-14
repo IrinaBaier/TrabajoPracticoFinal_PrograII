@@ -1,7 +1,9 @@
 package gestores;
 
+import estructuras.Adoptante;
 import excepciones.DatoInvalidoException;
 import excepciones.ElementoDuplicadoExcepcion;
+import excepciones.ElementoNoEncontradoExcepcion;
 import interfaces.Identificable;
 
 import java.util.ArrayList;
@@ -30,5 +32,30 @@ public class Gestor<T extends Identificable> {
     public boolean existe(T elemento) {
         return elementos.contains(elemento);
     }
+
+    ///duda con el parametro de si va Interger o int, deje int suponiendo que la id jamas sera nula.
+    public T buscar(int id) throws ElementoNoEncontradoExcepcion {
+        for (T elemento : elementos) {
+            if (elemento.getId() == id) {
+                return elemento;
+            }
+        }
+        throw new ElementoNoEncontradoExcepcion(id);
+    }
+
+    public void eliminar(int id) throws ElementoNoEncontradoExcepcion {
+        T elemento = buscar(id);
+        elementos.remove(elemento);
+    }
+
+    public List<T> listar() {
+        return new ArrayList<>(elementos);
+    }
+
+    public int cantidad() {
+        return elementos.size();
+    }
+
+
 }
 
