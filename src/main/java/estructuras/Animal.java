@@ -84,4 +84,6 @@ public abstract class Animal {
     public int hashCode() {
         return Objects.hash(codigo);
     }
+
+
 }

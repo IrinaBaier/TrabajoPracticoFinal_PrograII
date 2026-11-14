@@ -1,24 +1,25 @@
 package estructuras;
 
 import enums.EstadoAnimal;
+import interfaces.Identificable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Adoptante {
+public class Adoptante implements Identificable {
 
     private int id;
     static int contador = 1;
     private String nombre;
     private int dni;
-    private int telefono;
+    private String telefono;
     private String email;
     private String domicilio;
 
     private List<Adopcion> historialAdopciones;
 
-    public Adoptante(String nombre, int dni, int telefono, String email, String domicilio) {
+    public Adoptante(String nombre, int dni, String telefono, String email, String domicilio) {
         this.id = contador++;
         this.nombre = nombre;
         this.dni = dni;
@@ -65,11 +66,11 @@ public class Adoptante {
         this.dni = dni;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
@@ -128,7 +129,7 @@ public class Adoptante {
     public boolean validarDatos() {
         if (nombre != null && !nombre.trim().isEmpty() && // .trim para validar que el string no tenga espacios vacios
                 dni >= 1000000 && dni <=99999999 &&// Valida que tenga al menos 8 cifras
-                telefono > 0 && // hay que definir cuantas cifras tiene
+                telefono.isEmpty() && // hay que definir cuantas cifras tiene
                 email != null && email.contains("@") && !email.trim().isEmpty() &&
                 domicilio != null && !domicilio.trim().isEmpty()) {
 
