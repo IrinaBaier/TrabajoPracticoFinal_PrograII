@@ -5,6 +5,7 @@ import enums.EstadoAnimal;
 import excepciones.DatoInvalidoException;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public abstract class Animal {
@@ -18,9 +19,9 @@ public abstract class Animal {
 
     public Animal(String nombre, Edad edad, LocalDate fechaEntrada) {
         this.id = contadorId++;
-        this.nombre = nombre;
-        this.edad = edad;
-        this.fechaEntrada = fechaEntrada;
+        setNombre(nombre);
+        setEdad(edad);
+        setFechaEntrada(fechaEntrada);
     }
 
     public Animal() {
@@ -58,6 +59,11 @@ public abstract class Animal {
     }
 
     public void setFechaEntrada(LocalDate fechaEntrada) {
+        if(fechaEntrada == null){
+            throw new DatoInvalidoException("La fecha no puede ser null");
+        }else if(fechaEntrada.isAfter(LocalDate.now())){
+            throw new DatoInvalidoException("No se puede ingresar una fecha futura");
+        }
         this.fechaEntrada = fechaEntrada;
     }
 

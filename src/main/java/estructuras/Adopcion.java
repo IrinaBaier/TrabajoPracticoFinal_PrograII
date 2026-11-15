@@ -5,6 +5,7 @@ import interfaces.Identificable;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Adopcion implements Identificable {
@@ -22,6 +23,14 @@ public class Adopcion implements Identificable {
 
     public Adopcion() {
         this.ID = contador++;
+    }
+
+    public Adopcion(int idPerro, int idAoptante, int idSolicitud, LocalDateTime fecha) {
+        this.ID = contador++;
+        setIdPerro(idPerro);
+        setIdAoptante(idAoptante);
+        setIdSolicitud(idSolicitud);
+        setFecha(fecha);
     }
 
     public int getIdPerro() {
@@ -62,6 +71,11 @@ public class Adopcion implements Identificable {
     }
 
     public void setFecha(LocalDateTime fecha) {
+        if(fecha == null){
+            throw new DatoInvalidoException("La fecha no puede ser null");
+        }else if(fecha.isAfter(LocalDateTime.now())){
+            throw new DatoInvalidoException("No se puede registrar una adopción que aún no sucedió");
+        }
         this.fecha = fecha;
     }
 

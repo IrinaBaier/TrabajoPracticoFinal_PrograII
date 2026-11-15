@@ -1,6 +1,7 @@
 package estructuras;
 
 import enums.EstadoAnimal;
+import excepciones.DatoInvalidoException;
 import interfaces.Identificable;
 
 import java.util.ArrayList;
@@ -21,11 +22,11 @@ public class Adoptante implements Identificable {
 
     public Adoptante(String nombre, int dni, String telefono, String email, String domicilio) {
         this.id = contador++;
-        this.nombre = nombre;
-        this.dni = dni;
-        this.telefono = telefono;
-        this.email = email;
-        this.domicilio = domicilio;
+        setNombre(nombre);
+        setDni(dni);
+        setTelefono(telefono);
+        setEmail(email);
+        setDomicilio(domicilio);
         this.historialAdopciones = new ArrayList<>();
     }
 
@@ -38,16 +39,8 @@ public class Adoptante implements Identificable {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public static int getContador() {
         return contador;
-    }
-
-    public static void setContador(int contador) {
-        Adoptante.contador = contador;
     }
 
     public String getNombre() {
@@ -55,6 +48,11 @@ public class Adoptante implements Identificable {
     }
 
     public void setNombre(String nombre) {
+        if (nombre == null || nombre.trim().isEmpty()) {
+            throw new DatoInvalidoException("El nombre no puede estar vacío");
+        }else if(nombre.trim().length() < 3){
+            throw new DatoInvalidoException("El nombre no puede tener menos de 3 caracteres");
+        }
         this.nombre = nombre;
     }
 
@@ -63,6 +61,9 @@ public class Adoptante implements Identificable {
     }
 
     public void setDni(int dni) {
+        if(!(dni >= 1000000 && dni <=99999999)){
+            throw new DatoInvalidoException("El DNI no es válido");
+        }
         this.dni = dni;
     }
 
@@ -71,6 +72,14 @@ public class Adoptante implements Identificable {
     }
 
     public void setTelefono(String telefono) {
+        if(telefono.trim().isEmpty()){
+            throw new DatoInvalidoException("El teléfono no puede estar vacío");
+        }
+        // Elimino espacios en blanco, guiones y paréntesis
+        String numero = telefono.replaceAll("[\\s()-]", "");
+        if(numero.length() != 10){
+            throw new DatoInvalidoException("Un teléfono válido debe tener 10 dígitos");
+        }
         this.telefono = telefono;
     }
 
@@ -79,6 +88,12 @@ public class Adoptante implements Identificable {
     }
 
     public void setEmail(String email) {
+        if(email == null || email.trim().isEmpty()){
+            throw new DatoInvalidoException("El mail no puede estar vacío");
+        }
+        if(!email.contains("@")){
+            throw new DatoInvalidoException("No ingresaste una dirección de mail válida");
+        }
         this.email = email;
     }
 
@@ -87,6 +102,9 @@ public class Adoptante implements Identificable {
     }
 
     public void setDomicilio(String domicilio) {
+        if(domicilio == null || domicilio.trim().isEmpty()){
+            throw new DatoInvalidoException("El domicilio no puede estar vacío");
+        }
         this.domicilio = domicilio;
     }
 
@@ -113,12 +131,28 @@ public class Adoptante implements Identificable {
         return Objects.hashCode(dni);
     }
 
-
-    public boolean adoptar(Perro perro) {
-        if (!validarDatos() || perro == null || perro.getEstado() != EstadoAnimal.DISPONIBLE) {
+    public boolean validarDatos(Perro perro) {
+        if (perro == null || perro.getEstado() != EstadoAnimal.DISPONIBLE) {
             return false;
         }
-       else {
+        return true;
+    }
+    public boolean realizarSolicitud(Perro perro) {
+        if (!validarDatos(perro) ) {
+            return false;
+        }
+        else{
+        Solicitud nuevaSolicitud = new Solicitud(this.id, perro.getId());
+        return true;
+        }
+    }
+
+    //--------No debería existir, todas las adopciones se deberían gestionar desde adopciones
+    public boolean adoptar(Perro perro) {
+        if (!validarDatos(perro)) {
+            return false;
+        }
+        else {
             perro.setEstado(EstadoAnimal.ADOPTADO);
             Adopcion nuevaAdopcion = new Adopcion();
             this.historialAdopciones.add(nuevaAdopcion);
@@ -126,28 +160,7 @@ public class Adoptante implements Identificable {
         }
     }
 
-    public boolean validarDatos() {
-        if (nombre != null && !nombre.trim().isEmpty() && // .trim para validar que el string no tenga espacios vacios
-                dni >= 1000000 && dni <=99999999 &&// Valida que tenga al menos 8 cifras
-                telefono.isEmpty() && // hay que definir cuantas cifras tiene
-                email != null && email.contains("@") && !email.trim().isEmpty() &&
-                domicilio != null && !domicilio.trim().isEmpty()) {
-
-            return true;
-        }
-        return false;
-    }
-
-
-    public boolean realizarSolicitud(Perro perro) {
-        if (!validarDatos() || perro == null || perro.getEstado() != EstadoAnimal.DISPONIBLE) {
-            return false;
-        }
-        else{
-        Solicitud nuevaSolicitud = new Solicitud();
-        return true;
-    }
-    }
+//-------------------------------------
 
     public List<Adopcion> getHistorialAdopciones() {
         return historialAdopciones;
