@@ -43,7 +43,7 @@ public class MenuGeneral {
                     MenuAdmin.menuGeneralAdmin();
                     break;
                 case 2:
-                    System.out.println("Me voy al menú de Adoptante");
+                    MenuAdopante.menuAdoptantes();
                     break;
                 case 3:
                     System.out.println("La suplantación de identidad perruna en una ofensa grave. Su accionar ha sido reportado al consejo canino");
