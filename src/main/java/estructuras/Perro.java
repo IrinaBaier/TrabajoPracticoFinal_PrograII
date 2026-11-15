@@ -3,6 +3,7 @@ package estructuras;
 import enums.Edad;
 import enums.Porte;
 import enums.Temperamento;
+import excepciones.DatoInvalidoException;
 import interfaces.Adoptable;
 import interfaces.Identificable;
 
@@ -18,7 +19,7 @@ public class Perro extends Animal implements Adoptable, Identificable {
 
     public Perro(String nombre, Edad edad, LocalDate fechaEntrada, String raza, Porte porte, Temperamento temperamento) {
         super(nombre, edad, fechaEntrada);
-        this.raza = raza;
+        setRaza(raza);
         this.porte = porte;
         this.temperamento = temperamento;
     }
@@ -28,6 +29,12 @@ public class Perro extends Animal implements Adoptable, Identificable {
     }
 
     public void setRaza(String raza) {
+        if(raza == null || raza.trim().isEmpty()){
+            throw new DatoInvalidoException("La raza no puede estar vacía");
+        }
+        if(raza.length() < 5){
+            throw new DatoInvalidoException("La raza no es una palabra válida");
+        }
         this.raza = raza;
     }
 
