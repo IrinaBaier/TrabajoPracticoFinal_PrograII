@@ -46,6 +46,9 @@ public abstract class Animal {
         this.nombre = nombre;
     }
 
+    public Animal(int id) {
+        this.id = id;
+    }
     public Edad getEdad() {
         return edad;
     }

@@ -6,14 +6,23 @@ import java.time.LocalDateTime;
 
 public class Observaciones {
     private int ID;
-    static int contador = 0;
+    static int contador = 1;
     private LocalDateTime fecha;
     private String Descripcion;
+    private int idAdopcion;
 
-    public Observaciones(String descripcion) {
+    public Observaciones(String descripcion, int idAdopcion) {
         this.ID = contador++;
-        fecha = LocalDateTime.now();
-        Descripcion = descripcion;
+        this.fecha = LocalDateTime.now();
+        setDescripcion(descripcion);
+        setIdAdopcion(idAdopcion);
+    }
+
+    public Observaciones(int id, int idAdopcion, LocalDateTime fecha, String descripcion) {
+        this.ID = id;
+        setIdAdopcion(idAdopcion);
+        setFecha(fecha);
+        setDescripcion(descripcion);
     }
 
     public int getID() {
@@ -52,6 +61,17 @@ public class Observaciones {
             throw new DatoInvalidoException("La descripción es muy corta");
         }
         Descripcion = descripcion;
+    }
+
+    public int getIdAdopcion() {
+        return idAdopcion;
+    }
+
+    public void setIdAdopcion(int idAdopcion) {
+        if (idAdopcion < 1) {
+            throw new DatoInvalidoException("ID de adopción inválido");
+        }
+        this.idAdopcion = idAdopcion;
     }
 
     @Override

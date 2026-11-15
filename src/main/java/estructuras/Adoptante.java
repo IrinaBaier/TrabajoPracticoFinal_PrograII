@@ -30,6 +30,16 @@ public class Adoptante implements Identificable {
         this.historialAdopciones = new ArrayList<>();
     }
 
+    public Adoptante(int id, String nombre, int dni, String telefono, String email, String domicilio) {
+        this.id = id;
+        setNombre(nombre);
+        setDni(dni);
+        setTelefono(telefono);
+        setEmail(email);
+        setDomicilio(domicilio);
+        this.historialAdopciones = new ArrayList<>();
+    }
+
     public Adoptante() {
         this.id = contador++;
         this.historialAdopciones = new ArrayList<>();

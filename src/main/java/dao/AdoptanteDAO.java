@@ -47,7 +47,7 @@ public class AdoptanteDAO implements CRUD<Adoptante> {
                 lista.add(crearAdoptante(rs));
             }
         } catch (SQLException e) {
-            throw new AccesoDatosException("Error al listar las Adoptantes", e);
+            throw new AccesoDatosException("Error al listar los Adoptantes", e);
         }
         return lista;
     }
@@ -63,7 +63,7 @@ public class AdoptanteDAO implements CRUD<Adoptante> {
                 }
             }
         } catch (SQLException e) {
-            throw new AccesoDatosException("Error al buscar la Adoptante " + id , e);
+            throw new AccesoDatosException("Error al buscar a Adoptante " + id , e);
         }
         throw new ElementoNoEncontradoExcepcion("Adoptante", id);
     }
@@ -81,7 +81,7 @@ public class AdoptanteDAO implements CRUD<Adoptante> {
             ps.setInt(6, id);
             filas = ps.executeUpdate();
         } catch (SQLException e) {
-            throw new AccesoDatosException("Error al Actualizar de Adoptante " + id, e);
+            throw new AccesoDatosException("Error al Actualizar de Adoptantes " + id, e);
         }
         if (filas == 0) {
             throw new ElementoNoEncontradoExcepcion("Adoptante", id);
@@ -96,12 +96,11 @@ public class AdoptanteDAO implements CRUD<Adoptante> {
             ps.setInt(1, id);
             filas = ps.executeUpdate();
         } catch (SQLException e) {
-            throw new AccesoDatosException("Error al Eliminar de Adoptante " + id, e);
+            throw new AccesoDatosException("Error al Eliminar de Adoptantes " + id, e);
         }
         if (filas == 0) {
             throw new ElementoNoEncontradoExcepcion("Adoptante", id);
         }
-
     }
 
 
@@ -113,8 +112,8 @@ public class AdoptanteDAO implements CRUD<Adoptante> {
         String email = rs.getString("email");
         String domicilio = rs.getString("domicilio");
 
-        /// recordar descomentar y cambiar null a adoptante :)
-        //Adoptante adoptante = new Adoptante (id, nombre, dni, telefono, email, domicilio);
-        return null;
+
+        Adoptante adoptante = new Adoptante (id, nombre, dni, telefono, email, domicilio);
+        return adoptante;
     }
 }
