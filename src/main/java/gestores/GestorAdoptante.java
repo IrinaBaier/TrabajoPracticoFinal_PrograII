@@ -1,9 +1,8 @@
 package gestores;
-import dao.AdopcionDAO;
+
 import dao.AdoptanteDAO;
-import estructuras.Adopcion;
 import estructuras.Adoptante;
-import estructuras.Perro;
+import excepciones.AccesoDatosException;
 import excepciones.ElementoNoEncontradoExcepcion;
 import interfaces.CRUD;
 
@@ -31,36 +30,30 @@ public class GestorAdoptante extends Gestor<Adoptante>{
         return lista;
     }
 
-
     public List<Adoptante> listarOrdenadosPorNombre() {
         List<Adoptante> lista = new ArrayList<>(elementos);
         lista.sort(Comparator.comparing(Adoptante::getNombre, String.CASE_INSENSITIVE_ORDER));
         return lista;
     }
 
-    public boolean registrarSolicitud(int idAdoptante, Perro perro) throws ElementoNoEncontradoExcepcion {
-        Adoptante adoptante = buscar(idAdoptante);
-        if (adoptante != null) {
-            return adoptante.realizarSolicitud(perro);
-        }
-        return false;
+    public void guardarEnBD(Adoptante a) throws AccesoDatosException {
+        dao.crear(a);
     }
 
-///este metodo en adoptante o en adopciones? mi cerebro no logra identificar donde va
-    public boolean registrarAdopcion(int idAdoptante, Perro perro) throws ElementoNoEncontradoExcepcion {
-        Adoptante adoptante = buscar(idAdoptante);
-        if (adoptante != null) {
-            return adoptante.adoptar(perro);
-        }
-        return false;
+    public List<Adoptante> listarDesdeBD() throws AccesoDatosException {
+        return dao.mostrarTodos();
     }
 
-    public List<Adopcion> obtenerHistorialAdoptante(int idAdoptante) throws ElementoNoEncontradoExcepcion {
-        Adoptante adoptante = buscar(idAdoptante);
-        if (adoptante != null) {
-            return adoptante.getHistorialAdopciones();
-        }
-        return null;
+    public Adoptante buscarEnBD(int id) throws AccesoDatosException, ElementoNoEncontradoExcepcion {
+        return dao.buscarPorId(id);
+    }
+
+    public void actualizarEnBD(int id, Adoptante a) throws AccesoDatosException, ElementoNoEncontradoExcepcion {
+        dao.modificar(id,a);
+    }
+
+    public void eliminarDeBD(int id) throws AccesoDatosException, ElementoNoEncontradoExcepcion {
+        dao.eliminar(id);
     }
 
 }

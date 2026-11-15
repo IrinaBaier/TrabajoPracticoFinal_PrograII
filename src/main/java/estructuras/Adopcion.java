@@ -3,10 +3,8 @@ package estructuras;
 import excepciones.DatoInvalidoException;
 import interfaces.Identificable;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Adopcion implements Identificable {
@@ -34,10 +32,10 @@ public class Adopcion implements Identificable {
         setFecha(fecha);
     }
 
-    public Adopcion(int id, int idPerro, int idAoptante, Integer idSolicitud, LocalDateTime fecha) {
+    public Adopcion(int id, int idPerro, int idAdoptante, Integer idSolicitud, LocalDateTime fecha) {
         this.ID = id;
         setIdPerro(idPerro);
-        setIdAoptante(idAoptante);
+        setIdAoptante(idAdoptante);
         setIdSolicitud(idSolicitud);
         setFecha(fecha);
     }
@@ -113,4 +111,6 @@ public class Adopcion implements Identificable {
     public int getId() {
         return this.ID;
     }
+
+
 }

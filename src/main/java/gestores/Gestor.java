@@ -33,7 +33,7 @@ public class Gestor<T extends Identificable> {
         return elementos.contains(elemento);
     }
 
-    ///duda con el parametro de si va Interger o int, deje int suponiendo que la id jamas sera nula.
+
     public T buscar(int id) throws ElementoNoEncontradoExcepcion {
         for (T elemento : elementos) {
             if (elemento.getId() == id) {
