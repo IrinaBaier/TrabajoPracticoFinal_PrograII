@@ -29,13 +29,13 @@ public class MenuAdmin {
 
             switch (opcion){
                 case 1:
-                    System.out.println("Me voy al menú de gestión de perritos");
+                    MenuPerros.MenuPerros();
                     break;
                 case 2:
-                    System.out.println("Me voy al menú de gestión de adoptantes");
+                    MenuAdopante.menuAdoptantes();
                     break;
                 case 3:
-                    System.out.println("Me voy al menú de gestión de adopciones");
+                    MenuAdopciones.menuAdopciones();
                     break;
                 case 4:
                     System.out.println("Muestro las mértricas");
