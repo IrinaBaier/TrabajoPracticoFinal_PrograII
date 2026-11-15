@@ -3,6 +3,10 @@ package Menus;
 import enums.Edad;
 import enums.Porte;
 import enums.Temperamento;
+import estructuras.Perro;
+import excepciones.ElementoDuplicadoExcepcion;
+import excepciones.ElementoNoEncontradoExcepcion;
+import gestores.GestorPerros;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -11,11 +15,15 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MenuPerros {
+    private static final GestorPerros gestor = new GestorPerros(Perro.class);
     public static void MenuPerros(){
         Scanner entradaTeclado = new Scanner(System.in);
+
         int opcion;
 
         do{
+            System.out.println("+-----------------------------------------+");
+            System.out.println("| \t Menú de gestión de perritos      |");
             System.out.println("+-----------------------------------------+");
             System.out.println("| \t 1.- Cargar Perrito               |");
             System.out.println("| \t 2.- Mostrar Perritos             |");
@@ -43,11 +51,17 @@ public class MenuPerros {
                     System.out.println("| \t 1.- ADULTO                       |");
                     System.out.println("| \t 2.- ANCIANO                      |");
                     System.out.println("+-----------------------------------------+");
+                    Edad edad = Edad.CACHORRO;
                     do{
-                        opcion = entradaTeclado.nextInt();
+                        try{
+                            opcion = entradaTeclado.nextInt();
+                        }catch (InputMismatchException e){
+                            opcion = 3;
+                            entradaTeclado.next();
+                        }
                         entradaTeclado.next();
                         if (opcion >= 0 && opcion < Edad.values().length) {
-                            Edad edad = Edad.values()[opcion];
+                            edad = Edad.values()[opcion];
                         } else {
                             System.out.println("Opción inválida, vuelve a intentarlo");
                         }
@@ -55,21 +69,25 @@ public class MenuPerros {
 
                     System.out.println("¿Estás cargando un ingreso reciente? S/N");
                     String op = entradaTeclado.next();
-                    LocalDate fechaEntrada;
+                    LocalDate fechaEntrada = LocalDate.now();;
+                    boolean fechaValida = false;
 
-                    if(op.equalsIgnoreCase("S") || op.equalsIgnoreCase("Sí") || op.equalsIgnoreCase("si")){
-                        fechaEntrada = LocalDate.now();
-                    }else{
-                        try {
-                            System.out.println("Ingresá la fecha de ingreso (dd/MM/yyyy):");
-                            String fecha = entradaTeclado.next();
+                    if(!(op.equalsIgnoreCase("S") || op.equalsIgnoreCase("Sí") || op.equalsIgnoreCase("si")))
+                    {
+                        do{
+                            try {
+                                System.out.println("Ingresá la fecha de ingreso (dd/MM/yyyy):");
+                                String fecha = entradaTeclado.next();
 
-                            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                            fechaEntrada = LocalDate.parse(fecha, formato);
+                                DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                                fechaEntrada = LocalDate.parse(fecha, formato);
+                                fechaValida = true;
 
-                        } catch (DateTimeParseException e) {
-                            System.out.println("Formato de fecha inválido. Usá dd/MM/yyyy.");
-                        }
+                            } catch (DateTimeParseException e) {
+                                System.out.println("Formato de fecha inválido. Usá dd/MM/yyyy.");
+                            }
+                        }while (!fechaValida);
+
                     }
 
                     System.out.println("ingresá la raza del perrito:");
@@ -81,11 +99,17 @@ public class MenuPerros {
                     System.out.println("| \t 1.- MEDIANO                      |");
                     System.out.println("| \t 2.- GRANDE                       |");
                     System.out.println("+-----------------------------------------+");
+                    Porte porte = Porte.CHICO;
                     do{
-                        opcion = entradaTeclado.nextInt();
+                        try{
+                            opcion = entradaTeclado.nextInt();
+                        }catch (InputMismatchException e){
+                            opcion = 3;
+                            entradaTeclado.next();
+                        }
                         entradaTeclado.next();
                         if (opcion >= 0 && opcion < Porte.values().length) {
-                            Porte porte = Porte.values()[opcion];
+                            porte = Porte.values()[opcion];
                         } else {
                             System.out.println("Opción inválida, vuelve a intentarlo");
                         }
@@ -99,23 +123,47 @@ public class MenuPerros {
                     System.out.println("| \t 3.- AGRESIVO                     |");
                     System.out.println("| \t 4.- SOCIABLE                     |");
                     System.out.println("+-----------------------------------------+");
+                    Temperamento temperamento = Temperamento.AGRESIVO;
                     do{
-                        opcion = entradaTeclado.nextInt();
+                        try{
+                            opcion = entradaTeclado.nextInt();
+                        }catch (InputMismatchException e){
+                            opcion = 5;
+                            entradaTeclado.next();
+                        }
                         entradaTeclado.next();
                         if (opcion >= 0 && opcion < Temperamento.values().length) {
-                            Temperamento temperamento = Temperamento.values()[opcion];
+                            temperamento = Temperamento.values()[opcion];
                         } else {
                             System.out.println("Opción inválida, vuelve a intentarlo");
                         }
                     }while(opcion < 0 || opcion >= Temperamento.values().length);
-                    ///Implemento el gestor de carga de perrito
+
+                    Perro perrito = new Perro(nombre,edad, fechaEntrada, raza, porte, temperamento);
+                    try {
+                        gestor.registrar(perrito);
+                        System.out.println("Muy biem!! Perrito extosamente registrado :D");
+                    }catch (ElementoDuplicadoExcepcion e){
+                        System.out.println("Ups! Este perrito ya se estaba registrado.");
+                    }
+
                     break;
                 case 2:
-                   ///Implemento el gestor para mostrar los perritos
+                   gestor.listar();
                     break;
                 case 3:
                     System.out.println("Ingresa el ID del perrito que quieres sacar del sistema");
-                    ///Implemento el gestor para eliminar perritos
+                    try{
+                        opcion = entradaTeclado.nextInt();
+                    }catch (InputMismatchException e){
+                        opcion = 0;
+                        entradaTeclado.next();
+                    }
+                    try{
+                        gestor.quitarDelRegistro(opcion);
+                    }catch (ElementoNoEncontradoExcepcion e){
+                        System.out.println("No puedes quitar al perrito, porque no existe :o ");
+                    }
                     break;
                 case 0:
                     System.out.println("...");
