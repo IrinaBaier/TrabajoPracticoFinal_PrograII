@@ -26,6 +26,13 @@ public class Observaciones implements Identificable {
         setDescripcion(descripcion);
     }
 
+    public Observaciones(int idAdopcion, LocalDateTime fecha, String descripcion) {
+        this.ID = contador++;
+        setIdAdopcion(idAdopcion);
+        setFecha(fecha);
+        setDescripcion(descripcion);
+    }
+
     public int getID() {
         return ID;
     }

@@ -10,10 +10,11 @@ public class MenuAdmin {
 
         do{
             System.out.println("+-----------------------------------------+");
+            System.out.println("| \t Menu Administrador               |");
+            System.out.println("+-----------------------------------------+");
             System.out.println("| \t 1.- Gestionar Perrito            |");
             System.out.println("| \t 2.- Gestionar Adoptantes         |");
             System.out.println("| \t 3.- Gestionar Adopciones         |");
-            System.out.println("| \t 4.- Ver Métricas                 |");
             System.out.println("| \t 0.- Salir                        |");
             System.out.println("+-----------------------------------------+");
 
@@ -36,9 +37,6 @@ public class MenuAdmin {
                     break;
                 case 3:
                     MenuAdopciones.menuAdopciones();
-                    break;
-                case 4:
-                    System.out.println("Muestro las mértricas");
                     break;
                 case 0:
                     System.out.println("Adios!! :D");

@@ -31,7 +31,7 @@ public class Adopcion implements Identificable {
         setIdSolicitud(idSolicitud);
         setFecha(fecha);
     }
-
+    /// comprobar funcionamiento.
     public Adopcion(int id, int idPerro, int idAdoptante, Integer idSolicitud, LocalDateTime fecha) {
         this.ID = id;
         setIdPerro(idPerro);

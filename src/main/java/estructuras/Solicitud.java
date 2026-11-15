@@ -34,6 +34,15 @@ public class Solicitud implements Identificable {
         this.observacionSolicitud = observacionSolicitud;
     }
 
+    public Solicitud(int idAdoptante, int idPerro, LocalDateTime fecha, EstadoSolicitud estado, ObservacionSolicitud observacionSolicitud) {
+        this.ID = contador++;
+        this.idAdoptante = idAdoptante;
+        this.idPerro = idPerro;
+        this.fecha = fecha;
+        this.estado = estado;
+        this.observacionSolicitud = observacionSolicitud;
+    }
+
     public EstadoSolicitud getEstado() {
         return estado;
     }
