@@ -87,7 +87,7 @@ CREATE TABLE adopciones (
 
     id_adoptante INT NOT NULL,
     id_perro INT NOT NULL,
-    id_solicitud INT UNIQUE,
+    id_solicitud INT NULL UNIQUE,
 
     fecha DATETIME NOT NULL,
 
