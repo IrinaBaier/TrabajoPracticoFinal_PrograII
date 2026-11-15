@@ -18,7 +18,6 @@ public class Adoptante implements Identificable {
     private String email;
     private String domicilio;
 
-    private List<Adopcion> historialAdopciones;
 
     public Adoptante(String nombre, int dni, String telefono, String email, String domicilio) {
         this.id = contador++;
@@ -27,7 +26,7 @@ public class Adoptante implements Identificable {
         setTelefono(telefono);
         setEmail(email);
         setDomicilio(domicilio);
-        this.historialAdopciones = new ArrayList<>();
+
     }
 
     public Adoptante(int id, String nombre, int dni, String telefono, String email, String domicilio) {
@@ -37,12 +36,12 @@ public class Adoptante implements Identificable {
         setTelefono(telefono);
         setEmail(email);
         setDomicilio(domicilio);
-        this.historialAdopciones = new ArrayList<>();
+
     }
 
     public Adoptante() {
         this.id = contador++;
-        this.historialAdopciones = new ArrayList<>();
+
     }
 
     public int getId() {
@@ -139,41 +138,6 @@ public class Adoptante implements Identificable {
     @Override
     public int hashCode() {
         return Objects.hashCode(dni);
-    }
-
-    public boolean validarDatos(Perro perro) {
-        if (perro == null || perro.getEstado() != EstadoAnimal.DISPONIBLE) {
-            return false;
-        }
-        return true;
-    }
-    public boolean realizarSolicitud(Perro perro) {
-        if (!validarDatos(perro) ) {
-            return false;
-        }
-        else{
-        Solicitud nuevaSolicitud = new Solicitud(this.id, perro.getId());
-        return true;
-        }
-    }
-
-    //--------No debería existir, todas las adopciones se deberían gestionar desde adopciones
-    public boolean adoptar(Perro perro) {
-        if (!validarDatos(perro)) {
-            return false;
-        }
-        else {
-            perro.setEstado(EstadoAnimal.ADOPTADO);
-            Adopcion nuevaAdopcion = new Adopcion();
-            this.historialAdopciones.add(nuevaAdopcion);
-            return true;
-        }
-    }
-
-//-------------------------------------
-
-    public List<Adopcion> getHistorialAdopciones() {
-        return historialAdopciones;
     }
 
 }

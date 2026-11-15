@@ -78,16 +78,16 @@ public class Perro extends Animal implements Adoptable, Identificable {
 
     @Override
     public boolean puedeSerAdoptado() {
-        return false;
+        return getEstado() == EstadoAnimal.DISPONIBLE;
     }
 
     @Override
     public void marcarComoDisponible() {
-
+        setEstado(EstadoAnimal.DISPONIBLE);
     }
 
     @Override
     public void marcarComoNoDisponible() {
-
+        setEstado(EstadoAnimal.ADOPTADO);
     }
 }

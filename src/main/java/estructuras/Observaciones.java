@@ -1,10 +1,11 @@
 package estructuras;
 
 import excepciones.DatoInvalidoException;
+import interfaces.Identificable;
 
 import java.time.LocalDateTime;
 
-public class Observaciones {
+public class Observaciones implements Identificable {
     private int ID;
     static int contador = 1;
     private LocalDateTime fecha;
@@ -84,4 +85,8 @@ public class Observaciones {
     }
 
 
+    @Override
+    public int getId() {
+        return this.ID;
+    }
 }

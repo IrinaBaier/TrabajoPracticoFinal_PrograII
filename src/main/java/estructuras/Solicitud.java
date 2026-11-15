@@ -3,10 +3,11 @@ package estructuras;
 import enums.EstadoSolicitud;
 import enums.ObservacionSolicitud;
 import excepciones.DatoInvalidoException;
+import interfaces.Identificable;
 
 import java.time.LocalDateTime;
 
-public class    Solicitud {
+public class Solicitud implements Identificable {
     private int ID;
     static int contador = 1;
     private LocalDateTime fecha = LocalDateTime.now();
@@ -89,5 +90,10 @@ public class    Solicitud {
 
     public int getIdAdoptante() {
         return idAdoptante;
+    }
+
+    @Override
+    public int getId() {
+        return this.ID;
     }
 }
