@@ -3,6 +3,7 @@ package estructuras;
 import excepciones.DatoInvalidoException;
 import interfaces.Identificable;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,13 +11,13 @@ import java.util.List;
 
 public class Adopcion implements Identificable {
     private int ID;
-    static int contador = 0;
+    static int contador = 1;
 
     private int idPerro;
 
     private int idAoptante;
 
-    private int idSolicitud;
+    private Integer idSolicitud;
     private LocalDateTime fecha = LocalDateTime.now();
 
     private final List<Observaciones> observacion = new ArrayList<>();
@@ -25,8 +26,16 @@ public class Adopcion implements Identificable {
         this.ID = contador++;
     }
 
-    public Adopcion(int idPerro, int idAoptante, int idSolicitud, LocalDateTime fecha) {
+    public Adopcion(int idPerro, int idAoptante, Integer idSolicitud, LocalDateTime fecha) {
         this.ID = contador++;
+        setIdPerro(idPerro);
+        setIdAoptante(idAoptante);
+        setIdSolicitud(idSolicitud);
+        setFecha(fecha);
+    }
+
+    public Adopcion(int id, int idPerro, int idAoptante, Integer idSolicitud, LocalDateTime fecha) {
+        this.ID = id;
         setIdPerro(idPerro);
         setIdAoptante(idAoptante);
         setIdSolicitud(idSolicitud);
@@ -41,7 +50,7 @@ public class Adopcion implements Identificable {
         return idAoptante;
     }
 
-    public int getIdSolicitud() {
+    public Integer getIdSolicitud() {
         return idSolicitud;
     }
 
@@ -64,7 +73,7 @@ public class Adopcion implements Identificable {
         this.idAoptante = idAoptante;
     }
 
-    public void setIdSolicitud(int idSolicitud) {
+    public void setIdSolicitud(Integer idSolicitud) {
         //Usar el getSolicitud para validar que se corresponda a una solicitud válida, solo si no viene null
         //Se va a permitir este campo nulo
         this.idSolicitud = idSolicitud;

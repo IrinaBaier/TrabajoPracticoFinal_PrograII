@@ -34,13 +34,13 @@ CREATE TABLE perros (
         'NO_DISPONIBLE'
     ) NOT NULL,
 
-    raza VARCHAR(60),
+    raza VARCHAR(60) NOT NULL,
 
     porte ENUM(
         'CHICO',
         'MEDIANO',
         'GRANDE'
-    ),
+    ) NOT NULL,
 
     temperamento ENUM(
         'CALMADO',
@@ -48,7 +48,7 @@ CREATE TABLE perros (
         'ANSIOSO',
         'AGRESIVO',
         'SOCIABLE'
-    )
+    ) NOT NULL
 );
 
 
@@ -76,10 +76,12 @@ CREATE TABLE solicitudes (
     ),
 
     FOREIGN KEY (id_adoptante)
-        REFERENCES adoptantes(id_adoptante),
+        REFERENCES adoptantes(id_adoptante)
+        ON DELETE CASCADE,
 
     FOREIGN KEY (id_perro)
         REFERENCES perros(id_perro)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE adopciones (
@@ -92,13 +94,16 @@ CREATE TABLE adopciones (
     fecha DATETIME NOT NULL,
 
     FOREIGN KEY (id_adoptante)
-        REFERENCES adoptantes(id_adoptante),
+        REFERENCES adoptantes(id_adoptante)
+        ON DELETE CASCADE,
 
     FOREIGN KEY (id_perro)
-        REFERENCES perros(id_perro),
+        REFERENCES perros(id_perro)
+        ON DELETE CASCADE,
 
     FOREIGN KEY (id_solicitud)
-        REFERENCES solicitudes(id_solicitud),
+        REFERENCES solicitudes(id_solicitud)
+        ON DELETE CASCADE,
 
     UNIQUE (id_perro)
 );
@@ -116,6 +121,7 @@ CREATE TABLE observaciones (
 
     FOREIGN KEY (id_adopcion)
         REFERENCES adopciones(id_adopcion)
+        ON DELETE CASCADE
 );
 
 

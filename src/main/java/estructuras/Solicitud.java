@@ -8,20 +8,29 @@ import java.time.LocalDateTime;
 
 public class    Solicitud {
     private int ID;
-    static int contador = 0;
+    static int contador = 1;
     private LocalDateTime fecha = LocalDateTime.now();
     private EstadoSolicitud estado;
     private ObservacionSolicitud observacionSolicitud;
 
     private int idPerro;
 
-    private int idAoptante;
+    private int idAdoptante;
 
-    public Solicitud(int idAoptante, int idPerro) {
+    public Solicitud(int idAdoptante, int idPerro) {
         this.ID = contador++;
         this.estado = EstadoSolicitud.PENDIENTE;
-        setIdAoptante(idAoptante);
+        setIdAoptante(idAdoptante);
         setIdPerro(idPerro);
+    }
+
+    public Solicitud(int id, int idAdoptante, int idPerro, LocalDateTime fecha, EstadoSolicitud estado, ObservacionSolicitud observacionSolicitud) {
+        this.ID = id;
+        this.idAdoptante = idAdoptante;
+        this.idPerro = idPerro;
+        this.fecha = fecha;
+        this.estado = estado;
+        this.observacionSolicitud = observacionSolicitud;
     }
 
     public EstadoSolicitud getEstado() {
@@ -56,12 +65,12 @@ public class    Solicitud {
         this.idPerro = idPerro;
     }
 
-    public void setIdAoptante(int idAoptante) {
+    public void setIdAoptante(int idAdoptante) {
         // En gestor o DAO adoptante, crear un get adoptante por id y usarlo acá, para ver si es un id que no corresponde a un adoptante registrado
-        if (idAoptante < 1) {
+        if (idAdoptante < 1) {
             throw new DatoInvalidoException("El id del adoptante no es un número válido");
         }
-        this.idAoptante = idAoptante;
+        this.idAdoptante = idAdoptante;
     }
 
     @Override
@@ -72,5 +81,13 @@ public class    Solicitud {
                 ", estado=" + estado +
                 ", observacionSolicitud=" + observacionSolicitud +
                 '}';
+    }
+   ///se agrega para solicitusDAO
+    public int getIdPerro() {
+        return idPerro;
+    }
+
+    public int getIdAdoptante() {
+        return idAdoptante;
     }
 }

@@ -1,6 +1,7 @@
 package estructuras;
 
 import enums.Edad;
+import enums.EstadoAnimal;
 import enums.Porte;
 import enums.Temperamento;
 import excepciones.DatoInvalidoException;
@@ -22,6 +23,17 @@ public class Perro extends Animal implements Adoptable, Identificable {
         setRaza(raza);
         this.porte = porte;
         this.temperamento = temperamento;
+    }
+
+    public Perro(int id, String nombre, Edad edad, LocalDate fechaEntrada, EstadoAnimal estado, String raza, Porte porte, Temperamento temperamento) {
+        super(id);
+        setNombre(nombre);
+        setEdad(edad);
+        setFechaEntrada(fechaEntrada);
+        setEstado(estado);
+        setRaza(raza);
+        setPorte(porte);
+        setTemperamento(temperamento);
     }
 
     public String getRaza() {
