@@ -3,8 +3,7 @@ package gestores;
 import dao.PerroDAO;
 import enums.Porte;
 import estructuras.Perro;
-import excepciones.AccesoDatosException;
-import excepciones.ElementoNoEncontradoExcepcion;
+import excepciones.*;
 import interfaces.CRUD;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class GestorPerros  extends Gestor<Perro>   {
     }
     public List<Perro> listarDisponibles() {
         List<Perro> disponibles = new ArrayList<>();
-        for (Perro perro : listar()) {
+        for (Perro perro : elementos) {
             if (perro.puedeSerAdoptado()) {
                 disponibles.add(perro); }
         }
@@ -29,7 +28,7 @@ public class GestorPerros  extends Gestor<Perro>   {
 
     public List<Perro> listarPorRaza(String raza) {
         List<Perro> perros = new ArrayList<>();
-        for (Perro perro : listar()) {
+        for (Perro perro : elementos) {
             if (perro.getRaza() != null && perro.getRaza().equalsIgnoreCase(raza)) {
                 perros.add(perro); }
         }
@@ -38,7 +37,7 @@ public class GestorPerros  extends Gestor<Perro>   {
     }
     public List<Perro> listarPorPorte(Porte porte) {
         List<Perro> perros = new ArrayList<>();
-        for (Perro perro : listar()) {
+        for (Perro perro : elementos) {
             if (perro.getPorte() == porte) {
                 perros.add(perro);
             }
@@ -51,8 +50,23 @@ public class GestorPerros  extends Gestor<Perro>   {
         perro.marcarComoDisponible();
     }
 
-    public void guardarEnBD(Perro a) throws AccesoDatosException {
+    //Generamos un especie de atomicidad en el registro del perro para asegurarnos de que la lista del gestor y la base de datos se mantengan en sintonía
+    public void registrar(Perro a) throws ElementoDuplicadoExcepcion, AccesoDatosException, DatoInvalidoException {
+        //Primero validamos que no exista en la lista
+        if (a == null) {
+            throw new DatoInvalidoException("El perro no puede ser nulo");
+        }
+
+        if (existe(a)) {
+            throw new ElementoDuplicadoExcepcion(
+                    "Perro", a.getId()
+            );
+        }
+        //Ya podemos guardar en la DB
         dao.crear(a);
+
+        //Si esto no falla, la agregamos a la lista
+        agregar(a);
     }
 
     public List<Perro> listarDesdeBD() throws AccesoDatosException {
@@ -67,8 +81,16 @@ public class GestorPerros  extends Gestor<Perro>   {
         dao.modificar(id,a);
     }
 
-    public void eliminarDeBD(int id) throws AccesoDatosException, ElementoNoEncontradoExcepcion {
+    public void quitarDelRegistro(int id) throws AccesoDatosException, ElementoNoEncontradoExcepcion {
+
+        ///Primero validamos que exista en la lista
+        Perro p = buscar(id);
+
+        ///Ya podemos eliminarl de la DB
         dao.eliminar(id);
+
+        ///Si no falló, lo eliminamos de la lista
+        eliminar(id);
     }
 
 
