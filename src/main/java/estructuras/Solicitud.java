@@ -5,7 +5,7 @@ import enums.ObservacionSolicitud;
 
 import java.time.LocalDateTime;
 
-public class Solicitud {
+public class    Solicitud {
     private int ID;
     static int contador = 0;
     private LocalDateTime fecha = LocalDateTime.now();

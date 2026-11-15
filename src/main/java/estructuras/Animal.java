@@ -2,6 +2,7 @@ package estructuras;
 
 import enums.Edad;
 import enums.EstadoAnimal;
+import excepciones.DatoInvalidoException;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -9,7 +10,6 @@ import java.util.Objects;
 public abstract class Animal {
     private static int contadorId = 1;
     private int id;
-    private int codigo;
     private String nombre;
     private Edad edad;
     private LocalDate fechaEntrada;
@@ -36,6 +36,12 @@ public abstract class Animal {
     }
 
     public void setNombre(String nombre) {
+        if (nombre == null || nombre.trim().isEmpty()) {
+            throw new DatoInvalidoException("El nombre no puede estar vacío");
+        }else if(nombre.trim().length() < 3){
+            throw new DatoInvalidoException("El nombre no puede tener menos de 3 caracteres");
+        }
+
         this.nombre = nombre;
     }
 
@@ -77,12 +83,12 @@ public abstract class Animal {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Animal animal = (Animal) o;
-        return codigo == animal.codigo;
+        return id == animal.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codigo);
+        return Objects.hash(id);
     }
 
 
