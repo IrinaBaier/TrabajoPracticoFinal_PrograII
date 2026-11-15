@@ -1,8 +1,14 @@
 package interfaces;
 
+import excepciones.AccesoDatosException;
+import excepciones.ElementoNoEncontradoExcepcion;
+
+import java.util.List;
+
 public interface CRUD<T> {
-    boolean crear(T objeto);
-    void mostrar();
-    boolean modificar(int id, T objeto);
-    boolean eliminar(int id);
+    void crear(T objeto) throws AccesoDatosException;
+    List<T> mostrarTodos()throws AccesoDatosException;
+    T buscarPorId(int id) throws AccesoDatosException, ElementoNoEncontradoExcepcion;
+    void modificar(int id, T objeto) throws AccesoDatosException, ElementoNoEncontradoExcepcion;
+    void eliminar(int id)throws AccesoDatosException, ElementoNoEncontradoExcepcion;
 }

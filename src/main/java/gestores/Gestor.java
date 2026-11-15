@@ -1,6 +1,6 @@
 package gestores;
 
-import estructuras.Adoptante;
+
 import excepciones.DatoInvalidoException;
 import excepciones.ElementoDuplicadoExcepcion;
 import excepciones.ElementoNoEncontradoExcepcion;
@@ -40,7 +40,7 @@ public class Gestor<T extends Identificable> {
                 return elemento;
             }
         }
-        throw new ElementoNoEncontradoExcepcion(id);
+        throw new ElementoNoEncontradoExcepcion(tipoEntidad.getSimpleName(), id);
     }
 
     public void eliminar(int id) throws ElementoNoEncontradoExcepcion {
