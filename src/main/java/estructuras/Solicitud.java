@@ -43,6 +43,10 @@ public class Solicitud implements Identificable {
         setMotivoRechazo(observacionSolicitud);
     }
 
+    public Solicitud() {
+        this.ID = contador++;
+    }
+
     public EstadoSolicitud getEstado() {
         return estado;
     }
