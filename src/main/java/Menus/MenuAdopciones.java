@@ -87,22 +87,15 @@ public class MenuAdopciones {
                             } while (opcionSolicitud < 0 || opcionSolicitud > 2);
                             switch (opcionSolicitud) {
                                 case 1:
-                                    GestorPerros gestorPerros = new GestorPerros(Perro.class);
+                                    GestorPerros gestorPerros =  new GestorPerros(Perro.class);
                                     GestorAdopciones gestorAdopciones = new GestorAdopciones(Adopcion.class);
                                     Perro perro = gestorPerros.buscarEnBD(solicitud.getIdPerro());
-
                                     if (!perro.puedeSerAdoptado()) {
                                         System.out.println("El perro ya no está disponible.");
                                         break;
                                     }
-                                    Adopcion adopcion = new Adopcion( solicitud.getIdPerro(), solicitud.getIdAdoptante(), solicitud.getID(), LocalDateTime.now()
-                                    );
-                                    gestorAdopciones.guardarEnBD(adopcion);
-                                    perro.setEstado(EstadoAnimal.ADOPTADO);
-                                    gestorPerros.actualizarEnBD(perro.getId(), perro);
-                                    solicitud.setEstado(EstadoSolicitud.APROBADA);
-                                    solicitud.setMotivoRechazo(null);
-                                    gestor.actualizarEnBD(idAmodificar, solicitud);
+                                    Adopcion adopcion = new Adopcion(solicitud.getIdPerro(),solicitud.getIdAdoptante(),solicitud.getID(), LocalDateTime.now() );
+                                    gestorAdopciones.registrarAprobacion(adopcion, perro, solicitud);
                                     System.out.println("¡Adopción registrada correctamente!");
                                     break;
                                 case 2:
