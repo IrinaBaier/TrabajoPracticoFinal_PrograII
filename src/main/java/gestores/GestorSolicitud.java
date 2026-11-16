@@ -28,6 +28,20 @@ public class GestorSolicitud extends Gestor<Solicitud> {
 
         return true;
     }
+
+    public void registrarSolicitud(Solicitud solicitud)
+            throws ElementoDuplicadoExcepcion, AccesoDatosException {
+
+        agregar(solicitud);
+
+        try {
+            guardarEnBD(solicitud);
+        } catch (AccesoDatosException e) {
+            elementos.remove(solicitud);
+            throw e;
+        }
+    }
+
     public List<Solicitud> listarPorAdoptante(int idAdoptante)  throws AccesoDatosException{
         List<Solicitud> solicitudes = new ArrayList<>();
         for (Solicitud solicitud : dao.mostrarTodos()) {
