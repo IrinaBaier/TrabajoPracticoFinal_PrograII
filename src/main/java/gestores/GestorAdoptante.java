@@ -2,7 +2,10 @@ package gestores;
 
 import dao.AdoptanteDAO;
 import estructuras.Adoptante;
+import estructuras.Perro;
 import excepciones.AccesoDatosException;
+import excepciones.DatoInvalidoException;
+import excepciones.ElementoDuplicadoExcepcion;
 import excepciones.ElementoNoEncontradoExcepcion;
 import interfaces.CRUD;
 
@@ -35,10 +38,22 @@ public class GestorAdoptante extends Gestor<Adoptante>{
         lista.sort(Comparator.comparing(Adoptante::getNombre, String.CASE_INSENSITIVE_ORDER));
         return lista;
     }
+    public void registrarAdoptante(Adoptante a) throws ElementoDuplicadoExcepcion, AccesoDatosException, DatoInvalidoException {
 
-    public void guardarEnBD(Adoptante a) throws AccesoDatosException {
+        if (a == null) {
+            throw new DatoInvalidoException("El Adoptante no puede ser nulo");
+        }
+
+        if (existe(a)) {
+            throw new ElementoDuplicadoExcepcion("Adoptante", a.getId());
+        }
+        //Ya podemos guardar en la DB
         dao.crear(a);
+
+        //Si esto no falla, la agregamos a la lista
+        agregar(a);
     }
+
 
     public List<Adoptante> listarDesdeBD() throws AccesoDatosException {
         return dao.mostrarTodos();
