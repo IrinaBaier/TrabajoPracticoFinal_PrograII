@@ -55,7 +55,7 @@ public class MenuGeneral {
                     System.out.println("Tenés que ingresar una opción válida  (¬_¬)");
                     break;
             }
-        }while (opcion > 3);
+        }while (opcion != 0);
 
 
     }

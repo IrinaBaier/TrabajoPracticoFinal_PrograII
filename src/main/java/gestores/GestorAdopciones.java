@@ -10,7 +10,6 @@ import excepciones.ElementoDuplicadoExcepcion;
 import excepciones.ElementoNoEncontradoExcepcion;
 import interfaces.CRUD;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,15 +23,6 @@ public class GestorAdopciones extends Gestor <Adopcion>{
         super(tipoEntidad);
     }
 
-    public List<Adopcion> listarPorFecha(LocalDate fecha) {
-        List<Adopcion> lista = new ArrayList<>();
-        for (Adopcion a : elementos) {
-            if (a.getFecha() != null && a.getFecha().toLocalDate().isEqual(fecha))  {
-                lista.add(a);
-            }
-        }
-        return lista;
-    }
 
     public boolean registrarAdopcion(Adoptante adoptante, Perro perro) throws ElementoDuplicadoExcepcion {
 

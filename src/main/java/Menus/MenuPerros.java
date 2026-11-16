@@ -4,6 +4,7 @@ import enums.Edad;
 import enums.Porte;
 import enums.Temperamento;
 import estructuras.Perro;
+import excepciones.AccesoDatosException;
 import excepciones.ElementoDuplicadoExcepcion;
 import excepciones.ElementoNoEncontradoExcepcion;
 import gestores.GestorPerros;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class MenuPerros {
@@ -27,7 +29,7 @@ public class MenuPerros {
             System.out.println("+-----------------------------------------+");
             System.out.println("| \t 1.- Cargar Perrito               |");
             System.out.println("| \t 2.- Mostrar Perritos             |");
-            System.out.println("| \t 3.- Sacar un Perritol sistema    |");
+            System.out.println("| \t 3.- Sacar un Perrito sistema    |");
             System.out.println("| \t 0.- Salir                        |");
             System.out.println("+-----------------------------------------+");
 
@@ -38,9 +40,11 @@ public class MenuPerros {
                 opcion = 4;
                 entradaTeclado.next();
             }
+            entradaTeclado.nextLine();
 
             switch (opcion){
                 case 1:
+                    Perro perrito = new Perro();
 
                     System.out.println("Ingresa el nombre del perrito");
                     String nombre = entradaTeclado.next();
@@ -139,18 +143,72 @@ public class MenuPerros {
                         }
                     }while(opcion < 0 || opcion >= Temperamento.values().length);
 
-                    Perro perrito = new Perro(nombre,edad, fechaEntrada, raza, porte, temperamento);
+
                     try {
                         gestor.registrar(perrito);
-                        System.out.println("Muy biem!! Perrito extosamente registrado :D");
+                        System.out.println("Muy bien!! Perrito exitosamente registrado :D");
                     }catch (ElementoDuplicadoExcepcion e){
                         System.out.println("Ups! Este perrito ya se estaba registrado.");
+                    }catch (AccesoDatosException e) {
+                        System.out.println("Error con la base de datos: " + e.getMessage());
                     }
 
                     break;
                 case 2:
-                   gestor.listar();
+                    int opcion2;
+                    do {
+                        System.out.println("+-----------------------------------------+");
+                        System.out.println("| \t Listar Perritos                  |");
+                        System.out.println("+-----------------------------------------+");
+                        System.out.println("| \t 1.- Listar todos                 |");
+                        System.out.println("| \t 2.- Listar disponibles           |");
+                        System.out.println("| \t 0.- Volver                       |");
+                        System.out.println("+-----------------------------------------+");
+
+                        try {
+                            opcion2 = entradaTeclado.nextInt();
+                        } catch (InputMismatchException e) {
+                            opcion2 = -1;
+                            entradaTeclado.next();
+                        }
+                        entradaTeclado.nextLine();
+
+                        List<Perro> lista = null;
+
+                        try {
+                            switch (opcion2) {
+                                case 1:
+                                    lista = gestor.listarDesdeBD();
+                                    break;
+
+                                case 2:
+                                    lista = gestor.listarDisponibles();
+                                    break;
+
+                                case 0:
+                                    System.out.println("Volviendo al menú de perritos...");
+                                    break;
+
+                                default:
+                                    System.out.println("Tenés que ingresar una opción válida.");
+                                    break;
+                            }
+                        } catch (AccesoDatosException e) {
+                            System.out.println("No se pudo leer la base de datos: " + e.getMessage());
+                        }
+
+                        if (lista != null) {
+                            if (lista.isEmpty()) {
+                                System.out.println("No hay perritos para mostrar.");
+                            } else {
+                                for (Perro p : lista) {
+                                    System.out.println(p);
+                                }
+                            }
+                        }
+                    } while (opcion2 != 0);
                     break;
+
                 case 3:
                     System.out.println("Ingresa el ID del perrito que quieres sacar del sistema");
                     try{
@@ -163,6 +221,8 @@ public class MenuPerros {
                         gestor.quitarDelRegistro(opcion);
                     }catch (ElementoNoEncontradoExcepcion e){
                         System.out.println("No puedes quitar al perrito, porque no existe :o ");
+                    }catch (AccesoDatosException e) {
+                        System.out.println("Error con la base de datos: " + e.getMessage());
                     }
                     break;
                 case 0:

@@ -20,27 +20,27 @@ public class Solicitud implements Identificable {
 
     public Solicitud(int idAdoptante, int idPerro) {
         this.ID = contador++;
-        this.estado = EstadoSolicitud.PENDIENTE;
+        setEstado(EstadoSolicitud.PENDIENTE);
         setIdAoptante(idAdoptante);
         setIdPerro(idPerro);
     }
 
     public Solicitud(int id, int idAdoptante, int idPerro, LocalDateTime fecha, EstadoSolicitud estado, ObservacionSolicitud observacionSolicitud) {
         this.ID = id;
-        this.idAdoptante = idAdoptante;
-        this.idPerro = idPerro;
-        this.fecha = fecha;
-        this.estado = estado;
-        this.observacionSolicitud = observacionSolicitud;
+        setIdAoptante(idAdoptante);
+        setIdPerro(idPerro);
+        setFecha(fecha);
+        setEstado(estado);
+        setMotivoRechazo(observacionSolicitud);
     }
 
     public Solicitud(int idAdoptante, int idPerro, LocalDateTime fecha, EstadoSolicitud estado, ObservacionSolicitud observacionSolicitud) {
         this.ID = contador++;
-        this.idAdoptante = idAdoptante;
-        this.idPerro = idPerro;
-        this.fecha = fecha;
-        this.estado = estado;
-        this.observacionSolicitud = observacionSolicitud;
+        setIdAoptante(idAdoptante);
+        setIdPerro(idPerro);
+        setFecha(fecha);
+        setEstado(estado);
+        setMotivoRechazo(observacionSolicitud);
     }
 
     public EstadoSolicitud getEstado() {
@@ -48,6 +48,9 @@ public class Solicitud implements Identificable {
     }
 
     public void setEstado(EstadoSolicitud estado) {
+        if (estado == null) {
+            throw new DatoInvalidoException("El estado de la solicitud no puede ser nulo");
+        }
         this.estado = estado;
     }
 
@@ -65,6 +68,15 @@ public class Solicitud implements Identificable {
 
     public LocalDateTime getFecha() {
         return fecha;
+    }
+
+    public void setFecha(LocalDateTime fecha) {
+        if (fecha == null) {
+            throw new DatoInvalidoException("La fecha no puede ser nula");
+        } else if (fecha.isAfter(LocalDateTime.now())) {
+            throw new DatoInvalidoException("No se puede registrar una solicitud con fecha futura");
+        }
+        this.fecha = fecha;
     }
 
     public void setIdPerro(int idPerro) {

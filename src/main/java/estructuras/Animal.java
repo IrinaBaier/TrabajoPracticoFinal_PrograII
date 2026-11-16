@@ -54,6 +54,9 @@ public abstract class Animal {
     }
 
     public void setEdad(Edad edad) {
+        if (edad == null) {
+            throw new DatoInvalidoException("La edad no puede ser nula");
+        }
         this.edad = edad;
     }
 
@@ -75,6 +78,9 @@ public abstract class Animal {
     }
 
     public void setEstado(EstadoAnimal estado) {
+        if (estado == null) {
+            throw new DatoInvalidoException("El estado no puede ser nulo");
+        }
         this.estado = estado;
     }
 
@@ -86,7 +92,9 @@ public abstract class Animal {
                 ", edad=" + edad +
                 ", fechaEntrada=" + fechaEntrada;
     }
-
+    public static void setContadorId(int siguienteId) {
+        contadorId = siguienteId;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -1,11 +1,8 @@
 package estructuras;
 
-import enums.EstadoAnimal;
 import excepciones.DatoInvalidoException;
 import interfaces.Identificable;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class Adoptante implements Identificable {
@@ -52,6 +49,10 @@ public class Adoptante implements Identificable {
         return contador;
     }
 
+    public static void setContador(int siguienteId) {
+        contador = siguienteId;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -61,6 +62,8 @@ public class Adoptante implements Identificable {
             throw new DatoInvalidoException("El nombre no puede estar vacío");
         }else if(nombre.trim().length() < 3){
             throw new DatoInvalidoException("El nombre no puede tener menos de 3 caracteres");
+        }else if (!nombre.trim().matches("[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ ]+")) {
+            throw new DatoInvalidoException("El nombre solo puede tener letras y espacios");
         }
         this.nombre = nombre;
     }
@@ -81,12 +84,12 @@ public class Adoptante implements Identificable {
     }
 
     public void setTelefono(String telefono) {
-        if(telefono.trim().isEmpty()){
+        if(telefono == null || telefono.trim().isEmpty()){
             throw new DatoInvalidoException("El teléfono no puede estar vacío");
         }
         // Elimino espacios en blanco, guiones y paréntesis
         String numero = telefono.replaceAll("[\\s()-]", "");
-        if(numero.length() != 10){
+        if(!numero.matches("\\d{10}")){
             throw new DatoInvalidoException("Un teléfono válido debe tener 10 dígitos");
         }
         this.telefono = telefono;
@@ -100,7 +103,7 @@ public class Adoptante implements Identificable {
         if(email == null || email.trim().isEmpty()){
             throw new DatoInvalidoException("El mail no puede estar vacío");
         }
-        if(!email.contains("@")){
+        if(!email.trim().matches("^[\\w.+-]+@[\\w-]+\\.[\\w.]+$")){
             throw new DatoInvalidoException("No ingresaste una dirección de mail válida");
         }
         this.email = email;

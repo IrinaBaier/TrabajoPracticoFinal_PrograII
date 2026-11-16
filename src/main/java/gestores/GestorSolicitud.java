@@ -1,6 +1,5 @@
 package gestores;
 
-import enums.EstadoSolicitud;
 import estructuras.Solicitud;
 import excepciones.AccesoDatosException;
 import excepciones.ElementoDuplicadoExcepcion;
@@ -29,32 +28,14 @@ public class GestorSolicitud extends Gestor<Solicitud> {
 
         return true;
     }
-    public List<Solicitud> listarPorAdoptante(int idAdoptante) {
+    public List<Solicitud> listarPorAdoptante(int idAdoptante)  throws AccesoDatosException{
         List<Solicitud> solicitudes = new ArrayList<>();
-        for (Solicitud solicitud : listar()) {
+        for (Solicitud solicitud : dao.mostrarTodos()) {
             if (solicitud.getIdAdoptante() == idAdoptante) {
                 solicitudes.add(solicitud); }
         }
 
         return solicitudes;
-    }
-    public List<Solicitud> listarPorPerro(int idPerro) {
-        List<Solicitud> solicitudes = new ArrayList<>();
-        for (Solicitud solicitud : listar()) {
-            if (solicitud.getIdPerro() == idPerro) {
-                solicitudes.add(solicitud); }
-        }
-
-        return solicitudes;
-    }
-    public List<Solicitud> listarPendientes() {
-        List<Solicitud> pendientes = new ArrayList<>();
-        for (Solicitud solicitud : listar()) {
-            if (solicitud.getEstado() == EstadoSolicitud.PENDIENTE) {
-                pendientes.add(solicitud); }
-        }
-
-        return pendientes;
     }
 
     public void guardarEnBD(Solicitud s) throws AccesoDatosException {

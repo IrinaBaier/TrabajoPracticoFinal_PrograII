@@ -1,7 +1,6 @@
 package gestores;
 
 import dao.PerroDAO;
-import enums.Porte;
 import estructuras.Perro;
 import excepciones.*;
 import interfaces.CRUD;
@@ -16,9 +15,10 @@ public class GestorPerros  extends Gestor<Perro>   {
     public GestorPerros(Class<Perro> tipoEntidad) {
         super(tipoEntidad);
     }
-    public List<Perro> listarDisponibles() {
+
+    public List<Perro> listarDisponibles() throws AccesoDatosException{
         List<Perro> disponibles = new ArrayList<>();
-        for (Perro perro : elementos) {
+        for (Perro perro : dao.mostrarTodos()) {
             if (perro.puedeSerAdoptado()) {
                 disponibles.add(perro); }
         }
@@ -26,29 +26,6 @@ public class GestorPerros  extends Gestor<Perro>   {
         return disponibles;
     }
 
-    public List<Perro> listarPorRaza(String raza) {
-        List<Perro> perros = new ArrayList<>();
-        for (Perro perro : elementos) {
-            if (perro.getRaza() != null && perro.getRaza().equalsIgnoreCase(raza)) {
-                perros.add(perro); }
-        }
-
-        return perros;
-    }
-    public List<Perro> listarPorPorte(Porte porte) {
-        List<Perro> perros = new ArrayList<>();
-        for (Perro perro : elementos) {
-            if (perro.getPorte() == porte) {
-                perros.add(perro);
-            }
-        }
-
-        return perros;
-    }
-    public void marcarPerroDisponible(int idPerro) throws ElementoNoEncontradoExcepcion {
-        Perro perro = buscar(idPerro);
-        perro.marcarComoDisponible();
-    }
 
     //Generamos un especie de atomicidad en el registro del perro para asegurarnos de que la lista del gestor y la base de datos se mantengan en sintonía
     public void registrar(Perro a) throws ElementoDuplicadoExcepcion, AccesoDatosException, DatoInvalidoException {
@@ -84,7 +61,7 @@ public class GestorPerros  extends Gestor<Perro>   {
     public void quitarDelRegistro(int id) throws AccesoDatosException, ElementoNoEncontradoExcepcion {
 
         ///Primero validamos que exista en la lista
-        Perro p = buscar(id);
+        Perro p = dao.buscarPorId(id);
 
         ///Ya podemos eliminarl de la DB
         dao.eliminar(id);
