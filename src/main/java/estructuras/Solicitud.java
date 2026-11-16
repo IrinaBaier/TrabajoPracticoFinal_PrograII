@@ -85,12 +85,12 @@ public class Solicitud implements Identificable {
 
     @Override
     public String toString() {
-        return "estructuras.Solicitud{" +
+        return "Solicitud: ( " +
                 "ID=" + ID +
                 ", fecha=" + fecha +
                 ", estado=" + estado +
                 ", observacionSolicitud=" + observacionSolicitud +
-                '}';
+                ')';
     }
    ///se agrega para solicitusDAO
     public int getIdPerro() {

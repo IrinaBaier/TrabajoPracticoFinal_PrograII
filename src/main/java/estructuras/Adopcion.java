@@ -101,8 +101,11 @@ public class Adopcion implements Identificable {
 
     @Override
     public String toString() {
-        return "estructuras.Adopcion{" +
+        return "Adopcion{" +
                 "ID=" + ID +
+                ", idPerro=" + idPerro +
+                ", idAdoptante=" + idAoptante +
+                ", idSolicitud=" + idSolicitud +
                 ", fecha=" + fecha +
                 '}';
     }
