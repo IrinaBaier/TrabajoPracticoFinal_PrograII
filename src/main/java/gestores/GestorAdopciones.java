@@ -1,10 +1,12 @@
 package gestores;
 
 import dao.AdopcionDAO;
+import dao.RegistroSolicitudDAO;
 import enums.EstadoAnimal;
 import estructuras.Adopcion;
 import estructuras.Adoptante;
 import estructuras.Perro;
+import estructuras.Solicitud;
 import excepciones.AccesoDatosException;
 import excepciones.ElementoDuplicadoExcepcion;
 import excepciones.ElementoNoEncontradoExcepcion;
@@ -17,6 +19,7 @@ import java.util.List;
 public class GestorAdopciones extends Gestor <Adopcion>{
 
     private final CRUD<Adopcion> dao = new AdopcionDAO();
+    private final RegistroSolicitudDAO registroSolicitudDAO = new RegistroSolicitudDAO();
 
 
     public GestorAdopciones(Class<Adopcion> tipoEntidad) {
@@ -67,6 +70,10 @@ public class GestorAdopciones extends Gestor <Adopcion>{
 
     public void eliminarDeBD(int id) throws AccesoDatosException, ElementoNoEncontradoExcepcion {
         dao.eliminar(id);
+    }
+
+    public void registrarAprobacion(Adopcion adopcion, Perro perro, Solicitud solicitud ) {
+        registroSolicitudDAO.registrarAprobacion(adopcion, perro, solicitud);
     }
 
 }
