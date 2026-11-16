@@ -23,9 +23,9 @@ public class GestorAdoptante extends Gestor<Adoptante>{
     }
 
 
-    public List<Adoptante> listarPorDomicilio(String domicilio) {
+    public List<Adoptante> listarPorDomicilio(String domicilio) throws AccesoDatosException{
         List<Adoptante> lista = new ArrayList<>();
-        for (Adoptante a : elementos) {
+        for (Adoptante a : dao.mostrarTodos()) {
             if (a.getDomicilio() != null && a.getDomicilio().equalsIgnoreCase(domicilio)) {
                 lista.add(a);
             }
@@ -33,8 +33,8 @@ public class GestorAdoptante extends Gestor<Adoptante>{
         return lista;
     }
 
-    public List<Adoptante> listarOrdenadosPorNombre() {
-        List<Adoptante> lista = new ArrayList<>(elementos);
+    public List<Adoptante> listarOrdenadosPorNombre() throws AccesoDatosException{
+        List<Adoptante> lista = new ArrayList<>(dao.mostrarTodos());
         lista.sort(Comparator.comparing(Adoptante::getNombre, String.CASE_INSENSITIVE_ORDER));
         return lista;
     }
@@ -44,13 +44,13 @@ public class GestorAdoptante extends Gestor<Adoptante>{
             throw new DatoInvalidoException("El Adoptante no puede ser nulo");
         }
 
-        if (existe(a)) {
-            throw new ElementoDuplicadoExcepcion("Adoptante", a.getId());
+        for (Adoptante existente : dao.mostrarTodos()) {
+            if (existente.getDni() == a.getDni()) {
+                throw new ElementoDuplicadoExcepcion("El adoptante con DNI", a.getDni());
+            }
         }
-        //Ya podemos guardar en la DB
-        dao.crear(a);
 
-        //Si esto no falla, la agregamos a la lista
+        dao.crear(a);
         agregar(a);
     }
 

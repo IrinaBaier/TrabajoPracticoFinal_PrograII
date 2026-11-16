@@ -4,6 +4,7 @@ import Menus.MenuGeneral;
 import dao.*;
 import enums.*;
 import estructuras.*;
+import excepciones.AccesoDatosException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -11,28 +12,61 @@ import java.time.LocalDateTime;
 public class Main {
     public static void main(String[] args) {
 
-        cargarAdoptantes();
-        cargarPerros();
-        cargarSolicitudes();
-        cargarAdopciones();
-        cargarObservaciones();
-        MenuGeneral menuGeneral = new MenuGeneral();
-        menuGeneral.menuGeneral();
-
-    }
-        private static void cargarAdoptantes() {
-
-            AdoptanteDAO dao = new AdoptanteDAO();
-
-            dao.crear(new Adoptante("Juan Perez", 30111222, "2235123456","juan@gmail.com", "Mar del Plata" ));
-            dao.crear(new Adoptante("Maria Gomez", 28999888, "2234987654","maria@gmail.com", "Batan" ));
-            dao.crear(new Adoptante("Carlos Lopez", 35123456, "2234556677","carlos@gmail.com", "Mar del Plata" ));
-            dao.crear(new Adoptante( "Laura Fernandez", 32777888, "2234112233","laura@gmail.com", "Miramar"));
-            dao.crear(new Adoptante("Pedro Ramirez", 25111999, "2234778899","pedro@gmail.com", "Mar del Plata" ));
-            dao.crear(new Adoptante("Sofia Martinez", 40555666, "2234667788","sofia@gmail.com", "Santa Clara"));
-            dao.crear(new Adoptante( "Diego Torres", 33999111, "2234332211","diego@gmail.com", "Mar del Plata" ));
-            dao.crear(new Adoptante("Camila Rodriguez", 42111222, "2234998877","camila@gmail.com", "Batan"));
+        try {
+            // Los datos de prueba se cargan solo si la BD está vacía.
+            // Si no, la segunda vez que se ejecuta el programa se repiten los IDs (PRIMARY KEY) y se corta.
+            if (new AdoptanteDAO().mostrarTodos().isEmpty()) {
+                cargarAdoptantes();
+                cargarPerros();
+                cargarSolicitudes();
+                cargarAdopciones();
+                cargarObservaciones();
+            }
+            sincronizarContadores();
+        } catch (AccesoDatosException e) {
+            System.out.println("No se pudo conectar con la base de datos: " + e.getMessage());
+            return;
         }
+        MenuGeneral.menuGeneral();
+    }
+
+        // Los IDs se generan con contadores static que arrancan en 1 en cada ejecución.
+        // Los ponemos en (último ID de la BD + 1) para no repetir IDs al cargar desde los menús.
+        private static void sincronizarContadores () {
+            int maxPerro = 0;
+            for (Perro p : new PerroDAO().mostrarTodos()) {
+                maxPerro = Math.max(maxPerro, p.getId());
+            }
+            Animal.setContadorId(maxPerro + 1);
+
+            int maxAdoptante = 0;
+            for (Adoptante a : new AdoptanteDAO().mostrarTodos()) {
+                maxAdoptante = Math.max(maxAdoptante, a.getId());
+            }
+            Adoptante.setContador(maxAdoptante + 1);
+
+            int maxAdopcion = 0;
+            for (Adopcion a : new AdopcionDAO().mostrarTodos()) {
+                maxAdopcion = Math.max(maxAdopcion, a.getId());
+            }
+            Adopcion.setContador(maxAdopcion + 1);
+
+        }
+
+
+    private static void cargarAdoptantes() {
+
+        AdoptanteDAO dao = new AdoptanteDAO();
+
+        dao.crear(new Adoptante("Juan Perez", 30111222, "2235123456", "juan@gmail.com", "Mar del Plata"));
+        dao.crear(new Adoptante("Maria Gomez", 28999888, "2234987654", "maria@gmail.com", "Batan"));
+        dao.crear(new Adoptante("Carlos Lopez", 35123456, "2234556677", "carlos@gmail.com", "Mar del Plata"));
+        dao.crear(new Adoptante("Laura Fernandez", 32777888, "2234112233", "laura@gmail.com", "Miramar"));
+        dao.crear(new Adoptante("Pedro Ramirez", 25111999, "2234778899", "pedro@gmail.com", "Mar del Plata"));
+        dao.crear(new Adoptante("Sofia Martinez", 40555666, "2234667788", "sofia@gmail.com", "Santa Clara"));
+        dao.crear(new Adoptante("Diego Torres", 33999111, "2234332211", "diego@gmail.com", "Mar del Plata"));
+        dao.crear(new Adoptante("Camila Rodriguez", 42111222, "2234998877", "camila@gmail.com", "Batan"));
+    }
 
     private static void cargarPerros() {
 
@@ -88,7 +122,7 @@ public class Main {
         dao.crear(new Observaciones(3, LocalDateTime.of(2026, 11, 2, 12, 0), "Roky se murio."));
         dao.crear(new Observaciones(3, LocalDateTime.of(2026, 11, 2, 12, 0), "Roky resucito."));
     }
-    }
+}
 
 
 

@@ -7,7 +7,6 @@ import excepciones.ElementoNoEncontradoExcepcion;
 import interfaces.CRUD;
 import dao.ObservacionesDAO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GestorObservaciones extends Gestor<Observaciones>  {
@@ -18,14 +17,6 @@ public class GestorObservaciones extends Gestor<Observaciones>  {
         Observaciones observacion = new Observaciones(descripcion, idAdopcion);
         agregar(observacion);
         return true;
-    }
-    public List<Observaciones> listarPorAdopcion(int idAdopcion) {
-        List<Observaciones> observaciones = new ArrayList<>();
-        for (Observaciones observacion : listar()) {
-            if (observacion.getIdAdopcion() == idAdopcion) {
-                observaciones.add(observacion); }
-        }
-        return observaciones;
     }
 
     public GestorObservaciones(Class<Observaciones> tipoEntidad) {

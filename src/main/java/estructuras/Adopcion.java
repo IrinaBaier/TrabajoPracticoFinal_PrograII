@@ -99,6 +99,10 @@ public class Adopcion implements Identificable {
         return contador;
     }
 
+    public static void setContador(int siguienteId) {
+        contador = siguienteId;
+    }
+
     @Override
     public String toString() {
         return "Adopcion{" +
