@@ -86,6 +86,10 @@ public class Observacion implements Identificable {
         this.idAdopcion = idAdopcion;
     }
 
+    public static void setContador(int siguienteId) {
+        contador = siguienteId;
+    }
+
     @Override
     public String toString() {
         return "{" +
