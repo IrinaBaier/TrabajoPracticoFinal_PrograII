@@ -2,7 +2,7 @@
 package dao;
 
 import config.ConexionDB;
-import estructuras.Observaciones;
+import estructuras.Observacion;
 import excepciones.AccesoDatosException;
 import excepciones.ElementoNoEncontradoExcepcion;
 import interfaces.CRUD;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ObservacionesDAO implements CRUD<Observaciones> {
+public class ObservacionesDAO implements CRUD<Observacion> {
 
     private static final String SQL_INSERTAR ="INSERT INTO observaciones (id_observacion, id_adopcion, fecha, descripcion) VALUES (?, ?, ?, ?)";
     private static final String SQL_LISTAR = "SELECT * FROM observaciones ORDER BY id_observacion";
@@ -22,7 +22,7 @@ public class ObservacionesDAO implements CRUD<Observaciones> {
 
 
     @Override
-    public void crear(Observaciones objeto) throws AccesoDatosException {
+    public void crear(Observacion objeto) throws AccesoDatosException {
         try (Connection con = ConexionDB.getConexion();
              PreparedStatement ps = con.prepareStatement(SQL_INSERTAR)) {
             ps.setInt(1, objeto.getID());
@@ -38,8 +38,8 @@ public class ObservacionesDAO implements CRUD<Observaciones> {
 
 
     @Override
-    public List<Observaciones> mostrarTodos() throws AccesoDatosException {
-        List<Observaciones> lista = new ArrayList<>();
+    public List<Observacion> mostrarTodos() throws AccesoDatosException {
+        List<Observacion> lista = new ArrayList<>();
         try (Connection con = ConexionDB.getConexion();
              PreparedStatement ps = con.prepareStatement(SQL_LISTAR);
              ResultSet rs = ps.executeQuery()) {
@@ -55,7 +55,7 @@ public class ObservacionesDAO implements CRUD<Observaciones> {
 
 
     @Override
-    public Observaciones buscarPorId(int id) throws AccesoDatosException, ElementoNoEncontradoExcepcion {
+    public Observacion buscarPorId(int id) throws AccesoDatosException, ElementoNoEncontradoExcepcion {
         try (Connection con = ConexionDB.getConexion();
              PreparedStatement ps = con.prepareStatement(SQL_BUSCAR)) {
             ps.setInt(1, id);
@@ -73,7 +73,7 @@ public class ObservacionesDAO implements CRUD<Observaciones> {
 
 
     @Override
-    public void modificar(int id, Observaciones objeto) throws AccesoDatosException, ElementoNoEncontradoExcepcion {
+    public void modificar(int id, Observacion objeto) throws AccesoDatosException, ElementoNoEncontradoExcepcion {
         int filas;
         try (Connection con = ConexionDB.getConexion();
              PreparedStatement ps = con.prepareStatement(SQL_ACTUALIZAR)) {
@@ -107,12 +107,12 @@ public class ObservacionesDAO implements CRUD<Observaciones> {
     }
 
 
-    private Observaciones crearObservacion(ResultSet rs) throws SQLException {
+    private Observacion crearObservacion(ResultSet rs) throws SQLException {
         int id = rs.getInt("id_observacion");
         int idAdopcion = rs.getInt("id_adopcion");
         LocalDateTime fecha = rs.getObject("fecha", LocalDateTime.class);
         String descripcion = rs.getString("descripcion");
-        Observaciones observacion = new Observaciones( id, idAdopcion, fecha, descripcion);
+        Observacion observacion = new Observacion( id, idAdopcion, fecha, descripcion);
         return observacion;
     }
 }

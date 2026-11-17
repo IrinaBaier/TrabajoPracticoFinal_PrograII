@@ -1,4 +1,4 @@
-package Menus;
+package menus;
 
 import estructuras.Adoptante;
 import estructuras.Perro;

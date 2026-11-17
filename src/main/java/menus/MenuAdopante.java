@@ -1,4 +1,4 @@
-package Menus;
+package menus;
 
 import estructuras.Adoptante;
 import excepciones.AccesoDatosException;
@@ -6,7 +6,6 @@ import excepciones.DatoInvalidoException;
 import excepciones.ElementoDuplicadoExcepcion;
 import gestores.GestorAdoptante;
 
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;

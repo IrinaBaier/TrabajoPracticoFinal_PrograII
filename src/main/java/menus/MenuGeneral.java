@@ -1,4 +1,4 @@
-package Menus;
+package menus;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -8,17 +8,17 @@ public class MenuGeneral {
         Scanner entradaTeclado = new Scanner(System.in);
         int opcion;
 
-        System.out.println("                     .");
-        System.out.println("                    / V\\");
-        System.out.println("                  / `  /");
-        System.out.println("                 <<   |");
-        System.out.println("                 /    |");
-        System.out.println("               /      |");
-        System.out.println("             /        |");
-        System.out.println("           /    \\  \\ /");
-        System.out.println("          (      ) | |");
-        System.out.println("  ___|   _/  | |");
-        System.out.println("<___\\__)\\-)\n");
+
+        System.out.println("            /)-_-(\\        /)-_-(\\");
+        System.out.println("             (o o)          (o o)");
+        System.out.println("     .-----__/\\o/            \\o/\\__-----.");
+        System.out.println("    /  __      /              \\      __  \\");
+        System.out.println("\\__/\\ /  \\_\\ |/                \\| /_/  \\ /\\__/");
+        System.out.println("     \\\\     ||                  ||      \\\\");
+        System.out.println("     //     ||                  ||      //");
+        System.out.println("     |\\     |\\                  /|     /|");
+
+
 
         do{
             System.out.println("+-----------------------------------------+");

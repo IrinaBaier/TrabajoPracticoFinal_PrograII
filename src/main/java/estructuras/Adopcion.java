@@ -1,6 +1,7 @@
 package estructuras;
 
 import excepciones.DatoInvalidoException;
+import gestores.GestorObservaciones;
 import interfaces.Identificable;
 
 import java.time.LocalDateTime;
@@ -18,7 +19,7 @@ public class Adopcion implements Identificable {
     private Integer idSolicitud;
     private LocalDateTime fecha = LocalDateTime.now();
 
-    private final List<Observaciones> observacion = new ArrayList<>();
+    private final List<Observacion> observacion = new ArrayList<>();
 
     public Adopcion() {
         this.ID = contador++;
@@ -52,7 +53,7 @@ public class Adopcion implements Identificable {
         return idSolicitud;
     }
 
-    public List<Observaciones> getObservacion() {
+    public List<Observacion> getObservacion() {
         return observacion;
     }
     public void setIdPerro(int idPerro) {
