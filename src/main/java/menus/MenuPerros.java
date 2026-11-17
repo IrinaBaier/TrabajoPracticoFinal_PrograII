@@ -1,4 +1,4 @@
-package Menus;
+package menus;
 
 import enums.Edad;
 import enums.Porte;

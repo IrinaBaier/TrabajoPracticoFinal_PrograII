@@ -5,28 +5,32 @@ import interfaces.Identificable;
 
 import java.time.LocalDateTime;
 
-public class Observaciones implements Identificable {
+public class Observacion implements Identificable {
     private int ID;
     static int contador = 1;
     private LocalDateTime fecha;
     private String Descripcion;
     private int idAdopcion;
 
-    public Observaciones(String descripcion, int idAdopcion) {
+    public Observacion() {
+        this.ID = contador++;
+    }
+
+    public Observacion(String descripcion, int idAdopcion) {
         this.ID = contador++;
         this.fecha = LocalDateTime.now();
         setDescripcion(descripcion);
         setIdAdopcion(idAdopcion);
     }
 
-    public Observaciones(int id, int idAdopcion, LocalDateTime fecha, String descripcion) {
+    public Observacion(int id, int idAdopcion, LocalDateTime fecha, String descripcion) {
         this.ID = id;
         setIdAdopcion(idAdopcion);
         setFecha(fecha);
         setDescripcion(descripcion);
     }
 
-    public Observaciones(int idAdopcion, LocalDateTime fecha, String descripcion) {
+    public Observacion(int idAdopcion, LocalDateTime fecha, String descripcion) {
         this.ID = contador++;
         setIdAdopcion(idAdopcion);
         setFecha(fecha);
@@ -84,7 +88,7 @@ public class Observaciones implements Identificable {
 
     @Override
     public String toString() {
-        return "estructuras.Observaciones{" +
+        return "{" +
                 "ID=" + ID +
                 ", fecha=" + fecha +
                 ", Descripcion='" + Descripcion + '\'' +

@@ -1,41 +1,56 @@
 package gestores;
 
-import estructuras.Observaciones;
+import estructuras.Observacion;
 import excepciones.AccesoDatosException;
+import excepciones.DatoInvalidoException;
 import excepciones.ElementoDuplicadoExcepcion;
 import excepciones.ElementoNoEncontradoExcepcion;
 import interfaces.CRUD;
 import dao.ObservacionesDAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class GestorObservaciones extends Gestor<Observaciones>  {
+public class GestorObservaciones extends Gestor<Observacion>  {
 
-    private final CRUD<Observaciones> dao = new  ObservacionesDAO();
+    private final CRUD<Observacion> dao = new  ObservacionesDAO();
 
-    public boolean registrarObservacion(String descripcion, int idAdopcion) throws AccesoDatosException, ElementoDuplicadoExcepcion {
-        Observaciones observacion = new Observaciones(descripcion, idAdopcion);
-        agregar(observacion);
-        return true;
-    }
-
-    public GestorObservaciones(Class<Observaciones> tipoEntidad) {
+    public GestorObservaciones(Class<Observacion> tipoEntidad) {
         super(tipoEntidad);
     }
 
-    public void guardarEnBD(Observaciones o) throws AccesoDatosException {
+    public void registrarObservacion(Observacion observacion) throws AccesoDatosException, ElementoDuplicadoExcepcion {
+        if(observacion == null){
+            throw new DatoInvalidoException("La observación no puede ser nula");
+        }
+        dao.crear(observacion);
+
+        agregar(observacion);
+    }
+
+    public List<Observacion> listarPorAdopcion(int idAdopcion) {
+        List<Observacion> observacionesXAdop = new ArrayList<Observacion>();
+        for(Observacion o : listarDesdeBD()){
+            if(o.getIdAdopcion() == idAdopcion){
+                observacionesXAdop.add(o);
+            }
+        }
+        return observacionesXAdop;
+    }
+
+    public void guardarEnBD(Observacion o) throws AccesoDatosException {
         dao.crear(o);
     }
 
-    public List<Observaciones> listarDesdeBD() throws AccesoDatosException {
+    public List<Observacion> listarDesdeBD() throws AccesoDatosException {
         return dao.mostrarTodos();
     }
 
-    public Observaciones buscarEnBD(int id) throws AccesoDatosException, ElementoNoEncontradoExcepcion {
+    public Observacion buscarEnBD(int id) throws AccesoDatosException, ElementoNoEncontradoExcepcion {
         return dao.buscarPorId(id);
     }
 
-    public void actualizarEnBD(int id, Observaciones o) throws AccesoDatosException, ElementoNoEncontradoExcepcion {
+    public void actualizarEnBD(int id, Observacion o) throws AccesoDatosException, ElementoNoEncontradoExcepcion {
         dao.modificar(id,o);
     }
 

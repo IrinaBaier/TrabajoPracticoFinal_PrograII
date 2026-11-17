@@ -1,6 +1,8 @@
 package app;
 
-import Menus.MenuGeneral;
+import excepciones.ElementoDuplicadoExcepcion;
+import gestores.GestorObservaciones;
+import menus.MenuGeneral;
 import dao.*;
 import enums.*;
 import estructuras.*;
@@ -11,7 +13,6 @@ import java.time.LocalDateTime;
 
 public class Main {
     public static void main(String[] args) {
-
         try {
             // Los datos de prueba se cargan solo si la BD está vacía.
             // Si no, la segunda vez que se ejecuta el programa se repiten los IDs (PRIMARY KEY) y se corta.
@@ -115,12 +116,12 @@ public class Main {
     private static void cargarObservaciones() {
 
         ObservacionesDAO dao = new ObservacionesDAO();
+        dao.crear(new Observacion(1, LocalDateTime.of(2026, 10, 28, 10, 0), "Luna se adapto correctamente a su nuevo hogar."));
+        dao.crear(new Observacion(1, LocalDateTime.of(2026, 11, 5, 10, 30), "Buena convivencia con los integrantes de la familia."));
+        dao.crear(new Observacion(2, LocalDateTime.of(2026, 10, 30, 15, 0), "Max presenta buena alimentacion y comportamiento."));
+        dao.crear(new Observacion(3, LocalDateTime.of(2026, 11, 2, 12, 0), "Roky se murió."));
+        dao.crear(new Observacion(3, LocalDateTime.of(2026, 11, 5, 12, 0), "Roky resucitó."));
 
-        dao.crear(new Observaciones(1, LocalDateTime.of(2026, 10, 28, 10, 0), "Luna se adapto correctamente a su nuevo hogar."));
-        dao.crear(new Observaciones(1, LocalDateTime.of(2026, 11, 5, 10, 30), "Buena convivencia con los integrantes de la familia."));
-        dao.crear(new Observaciones(2, LocalDateTime.of(2026, 10, 30, 15, 0), "Max presenta buena alimentacion y comportamiento."));
-        dao.crear(new Observaciones(3, LocalDateTime.of(2026, 11, 2, 12, 0), "Roky se murio."));
-        dao.crear(new Observaciones(3, LocalDateTime.of(2026, 11, 2, 12, 0), "Roky resucito."));
     }
 }
 

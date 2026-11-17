@@ -1,5 +1,7 @@
 package enums;
 
 public enum EstadoAnimal {
-    DISPONIBLE, ADOPTADO, NO_DISPONIBLE
+    DISPONIBLE,
+    ADOPTADO,
+    NO_DISPONIBLE //Pensado para el futuro
 }

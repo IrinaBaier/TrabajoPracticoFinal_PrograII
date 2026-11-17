@@ -25,21 +25,14 @@ public class GestorAdopciones extends Gestor <Adopcion>{
     public GestorAdopciones(Class<Adopcion> tipoEntidad) {
         super(tipoEntidad);
     }
+    GestorPerros gestorPerros =  new GestorPerros(Perro.class);
 
 
-    public boolean registrarAdopcion(Adoptante adoptante, Perro perro) throws ElementoDuplicadoExcepcion {
-
-        if (adoptante == null || perro == null) {
-            return false;
-        }
-        if (perro.getEstado() != EstadoAnimal.DISPONIBLE) {
-            return false;
-        }
-        Adopcion nuevaAdopcion = new Adopcion(perro.getId(), adoptante.getId(), null, LocalDateTime.now());
+    public void registrarAdopcion(Adopcion nuevaAdopcion) throws ElementoDuplicadoExcepcion, ElementoNoEncontradoExcepcion {
+        Perro perro = gestorPerros.buscarEnBD(nuevaAdopcion.getIdPerro());
         agregar(nuevaAdopcion);
+        guardarEnBD(nuevaAdopcion);
         perro.setEstado(EstadoAnimal.ADOPTADO);
-
-        return true;
     }
 
     public List<Adopcion> obtenerHistorialAdoptante(int idAdoptante) throws AccesoDatosException {
