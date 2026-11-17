@@ -52,6 +52,18 @@ public class Main {
             }
             Adopcion.setContador(maxAdopcion + 1);
 
+            int maxSolicitud = 0;
+            for (Solicitud s : new SolicitudDAO().mostrarTodos()) {
+                maxSolicitud = Math.max(maxSolicitud, s.getId());
+            }
+            Solicitud.setContador(maxSolicitud + 1);
+
+            int maxObservacion = 0;
+            for (Observacion o : new ObservacionesDAO().mostrarTodos()) {
+                maxObservacion = Math.max(maxObservacion, o.getId());
+            }
+            Solicitud.setContador(maxObservacion + 1);
+
         }
 
 

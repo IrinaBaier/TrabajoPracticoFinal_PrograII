@@ -99,6 +99,10 @@ public class Solicitud implements Identificable {
         this.idAdoptante = idAdoptante;
     }
 
+    public static void setContador(int siguienteId) {
+        contador = siguienteId;
+    }
+
     @Override
     public String toString() {
         return "Solicitud: ( " +
