@@ -21,8 +21,15 @@ public class RegistroSolicitudDAO {
         if (adopcion == null || perro == null || solicitud == null) {
             throw new IllegalArgumentException( "La adopción, el perro y la solicitud son obligatorios.");
         }
-        if (solicitud.getEstado() != EstadoSolicitud.PENDIENTE || perro.getEstado() != EstadoAnimal.DISPONIBLE || adopcion.getIdPerro() != perro.getId() || adopcion.getIdPerro() != solicitud.getIdPerro() || adopcion.getIdAoptante() != solicitud.getIdAdoptante() || !Objects.equals(adopcion.getIdSolicitud(), solicitud.getID())) {
-            throw new IllegalArgumentException("La solicitud debe estar pendiente y corresponder al perro y a la adopción." );
+        if (solicitud.getEstado() != EstadoSolicitud.PENDIENTE) {
+            throw new IllegalArgumentException("La solicitud ya fue procesada.");
+        }
+        if (!perro.puedeSerAdoptado()) {
+            throw new IllegalArgumentException("El perro no está disponible.");
+        }
+        if (adopcion.getIdPerro() != perro.getId()|| adopcion.getIdPerro() != solicitud.getIdPerro()|| adopcion.getIdAoptante() != solicitud.getIdAdoptante()|| !Objects.equals(adopcion.getIdSolicitud(), solicitud.getID())) {
+            throw new IllegalArgumentException(
+                    "Los datos de la adopción no coinciden." );
         }
         String sqlPerro = "UPDATE perros SET estado = ? WHERE id_perro = ? AND estado = ?";
 
