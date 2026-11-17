@@ -89,8 +89,16 @@ public class MenuAdopciones {
 
                     }while(!valido);
 
+                    String op;
+                    do{
                     System.out.println("¿La adopción se está realizando ahora? S/N");
-                    String op = entradaTeclado.next();
+                    op = entradaTeclado.next();
+                    entradaTeclado.nextLine();
+                        if (!op.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
+                            System.out.println("Respuesta inválida, ingresá solo letras.");
+                        }
+                    } while (!op.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+"));
+
                     nuevaAdopcion.setFecha(LocalDateTime.now());
 
                     if(!(op.equalsIgnoreCase("S") || op.equalsIgnoreCase("Sí") || op.equalsIgnoreCase("si")))
@@ -117,9 +125,13 @@ public class MenuAdopciones {
                         gestorAdopciones.registrarAdopcion(nuevaAdopcion);
                         System.out.println("Guau!! Otra adopción exitosa :D");
                     }catch (ElementoNoEncontradoExcepcion e){
-                        System.out.println("Ups! Este perrito ya no existe.");
-                    } catch (ElementoDuplicadoExcepcion e) {
+                        System.out.println("Ups! " + e.getMessage());
+                    }catch (ElementoDuplicadoExcepcion e) {
                         System.out.println("ya registraste esta adopción anteriormente");
+                    } catch (DatoInvalidoException e) {
+                        System.out.println("No se puede adoptar: " + e.getMessage());
+                    }catch (AccesoDatosException e) {
+                        System.out.println("No se pudo guardar la adopción: " + e.getCause().getMessage());
                     }
                     break;
                 case 2:
@@ -133,9 +145,10 @@ public class MenuAdopciones {
                         } else {
                             for (Adopcion a : adopciones) {
                                 System.out.println(a);
-                                if(gestorObservaciones.listarPorAdopcion(a.getId()).size() > 0){
+                                List<Observacion> observaciones = gestorObservaciones.listarPorAdopcion(a.getId());
+                                if(!observaciones.isEmpty()){
                                     System.out.println("OBSERVACIONES");
-                                    for(Observacion o : gestorObservaciones.listarPorAdopcion(a.getId())){
+                                    for(Observacion o : observaciones){
                                         System.out.println(o);
                                     }
                                 }
@@ -154,22 +167,39 @@ public class MenuAdopciones {
 
                     try {
                         List<Solicitud> solicitudes = gestor.listarDesdeBD();
+                        int pendientes =0;
                         for (Solicitud s : solicitudes) {
                             if (s.getEstado() == EstadoSolicitud.PENDIENTE) {
                                 System.out.println(s);
+                                pendientes ++;
                             }
                         }
+                        if (pendientes == 0) {
+                            System.out.println("No hay solicitudes pendientes.");
+                            break;
+                        }
+
                         System.out.println("Elegir ID de solicitud a modificar:");
                         int idAmodificar = -1;
+                        boolean esPendiente = false;
                         do {
                             try {
                                 idAmodificar = entradaTeclado.nextInt();
+                                for (Solicitud s : solicitudes) {
+                                    if (s.getId() == idAmodificar && s.getEstado() == EstadoSolicitud.PENDIENTE) {
+                                        esPendiente = true;
+                                    }
+                                }
+                                if (!esPendiente) {
+                                    System.out.println("Ese ID no es de una solicitud pendiente, elegí uno de la lista:");
+                                }
                             } catch (InputMismatchException e) {
                                 System.out.println("Tenés que ingresar un número.");
                                 entradaTeclado.next();
-                                idAmodificar = -1;
+
                             }
-                        } while (idAmodificar < 0);
+                        } while (!esPendiente);
+
                         Solicitud solicitud = gestor.buscarEnBD(idAmodificar);
                         if (solicitud.getEstado() == EstadoSolicitud.PENDIENTE) {
                             System.out.println("+-----------------------------------------------+");
@@ -282,9 +312,14 @@ public class MenuAdopciones {
 
                     }while(!valido);
 
+                    do{
                     System.out.println("¿Desea ingresar una fecha específica para la observación? S/N");
                     op = entradaTeclado.next();
                     entradaTeclado.nextLine();
+                        if (!op.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
+                            System.out.println("Respuesta inválida, ingresá solo letras.");}
+                    } while (!op.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+"));
+
                     observacion.setFecha(LocalDateTime.now());
 
                     if((op.equalsIgnoreCase("S") || op.equalsIgnoreCase("Sí") || op.equalsIgnoreCase("si")))

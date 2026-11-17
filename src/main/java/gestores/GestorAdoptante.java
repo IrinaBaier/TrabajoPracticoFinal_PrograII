@@ -54,11 +54,10 @@ public class GestorAdoptante extends Gestor<Adoptante>{
         agregar(a);
     }
 
-
     public List<Adoptante> listarDesdeBD() throws AccesoDatosException {
         return dao.mostrarTodos();
     }
-
+//metodos de permanencia en base de datos, pensados a usar en el futuro.
     public Adoptante buscarEnBD(int id) throws AccesoDatosException, ElementoNoEncontradoExcepcion {
         return dao.buscarPorId(id);
     }

@@ -6,6 +6,7 @@ import estructuras.Solicitud;
 import excepciones.AccesoDatosException;
 import excepciones.DatoInvalidoException;
 import excepciones.ElementoDuplicadoExcepcion;
+import excepciones.ElementoNoEncontradoExcepcion;
 import gestores.GestorAdoptante;
 import gestores.GestorPerros;
 import gestores.GestorSolicitud;
@@ -29,6 +30,7 @@ public class MenuAdopanteCliente {
             System.out.println("+-----------------------------------------+");
             System.out.println("| \t 1.- Quiero ser adoptante             |");
             System.out.println("| \t 2.- Mostrar Perritos                 |");
+            System.out.println("| \t 3.- Ya soy adoptante, hacer solicitud|");
             System.out.println("| \t 0.- Salir                            |");
             System.out.println("+-----------------------------------------+");
 
@@ -216,6 +218,48 @@ public class MenuAdopanteCliente {
                                 }
                             }
                         }
+                    break;
+                        //agrego para que solicite adopcion si ya esta registrado el adoptante por el admin,
+                        // el adoptante se busca por dni, no por id.
+                case 3:
+                    System.out.println("Ingresá tu DNI:");
+                    try {
+                        int dni = entradaTeclado.nextInt();
+                        Adoptante existente = null;
+                        for (Adoptante a : gestorAdoptantes.listarDesdeBD()) {
+                            if (a.getDni() == dni) {
+                                existente = a;
+                                break;
+                            }
+                        }
+                        if (existente == null) {
+                            System.out.println("No hay un adoptante registrado con ese DNI. Registrate con la opción 1.");
+                            break;
+                        }
+
+                        System.out.println("¡Hola " + existente.getNombre() + "! Estos son los perritos disponibles:");
+                        for (Perro p : gestorPerros.listarDisponibles()) {
+                            System.out.println(p);
+                        }
+                        System.out.println("Ingresá el ID del perrito que querés solicitar:");
+                        Perro perro = gestorPerros.buscarEnBD(entradaTeclado.nextInt());
+
+                        if (!perro.puedeSerAdoptado()) {
+                            System.out.println("Ese perrito no está disponible para adopción.");
+                        } else {
+                            gestorSolicitud.registrarSolicitud(new Solicitud(existente.getId(), perro.getId()));
+                            System.out.println("¡Solicitud registrada correctamente!");
+                        }
+                    } catch (InputMismatchException e) {
+                        System.out.println("Dato inválido, ingresá solo números.");
+                        entradaTeclado.nextLine();
+                    } catch (ElementoNoEncontradoExcepcion e) {
+                        System.out.println("No existe un perrito con ese ID.");
+                    } catch (ElementoDuplicadoExcepcion e) {
+                        System.out.println("La solicitud ya está registrada.");
+                    } catch (AccesoDatosException e) {
+                        System.out.println("Error con la base de datos: " + e.getMessage());
+                    }
                     break;
                 case 0:
                     System.out.println("Nos vemos!! :D");

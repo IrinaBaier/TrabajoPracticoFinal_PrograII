@@ -19,16 +19,6 @@ public class GestorSolicitud extends Gestor<Solicitud> {
         super(tipoEntidad);
     }
 
-    public boolean registrarSolicitud(int idAdoptante, Perro perro) throws ElementoDuplicadoExcepcion {
-        if (perro == null || !perro.puedeSerAdoptado()) {
-            return false;
-        }
-        Solicitud solicitud = new Solicitud(idAdoptante, perro.getId());
-        agregar(solicitud);
-
-        return true;
-    }
-
     public void registrarSolicitud(Solicitud solicitud)
             throws ElementoDuplicadoExcepcion, AccesoDatosException {
 
@@ -41,7 +31,7 @@ public class GestorSolicitud extends Gestor<Solicitud> {
             throw e;
         }
     }
-
+// Metodo pensado en escabilidad a futuro
     public List<Solicitud> listarPorAdoptante(int idAdoptante)  throws AccesoDatosException{
         List<Solicitud> solicitudes = new ArrayList<>();
         for (Solicitud solicitud : dao.mostrarTodos()) {

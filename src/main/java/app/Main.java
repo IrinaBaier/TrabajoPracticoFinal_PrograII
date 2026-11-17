@@ -31,8 +31,8 @@ public class Main {
         MenuGeneral.menuGeneral();
     }
 
-        // Los IDs se generan con contadores static que arrancan en 1 en cada ejecución.
-        // Los ponemos en (último ID de la BD + 1) para no repetir IDs al cargar desde los menús.
+        // Los id se generan con contadores static que arrancan en 1 en cada ejecución.
+        // Los ponemos en (último id de la BD + 1) para no repetir id al cargar desde los menús.
         private static void sincronizarContadores () {
             int maxPerro = 0;
             for (Perro p : new PerroDAO().mostrarTodos()) {
@@ -62,7 +62,7 @@ public class Main {
             for (Observacion o : new ObservacionesDAO().mostrarTodos()) {
                 maxObservacion = Math.max(maxObservacion, o.getId());
             }
-            Solicitud.setContador(maxObservacion + 1);
+            Observacion.setContador(maxObservacion + 1);
 
         }
 

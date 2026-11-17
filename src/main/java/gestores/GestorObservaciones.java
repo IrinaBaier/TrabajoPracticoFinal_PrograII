@@ -45,9 +45,7 @@ public class GestorObservaciones extends Gestor<Observacion>  {
         return observacionesXAdop;
     }
 
-    public void guardarEnBD(Observacion o) throws AccesoDatosException {
-        dao.crear(o);
-    }
+
 
     public List<Observacion> listarDesdeBD() throws AccesoDatosException {
         return dao.mostrarTodos();

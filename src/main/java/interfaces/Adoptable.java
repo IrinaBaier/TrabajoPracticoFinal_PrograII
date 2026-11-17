@@ -9,4 +9,5 @@ public interface Adoptable {
   void marcarComoNoDisponible();
 
 
+
 }
