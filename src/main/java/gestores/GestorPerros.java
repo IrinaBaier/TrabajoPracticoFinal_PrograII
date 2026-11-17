@@ -65,9 +65,10 @@ public class GestorPerros  extends Gestor<Perro>   {
 
         ///Ya podemos eliminarl de la DB
         dao.eliminar(id);
-
-        ///Si no falló, lo eliminamos de la lista
-        eliminar(id);
+        /// lo saca de la lista si estaba. si no, no hace nada
+        if (existe(p)) {
+            eliminar(id);
+        }
     }
 
 

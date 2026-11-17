@@ -80,8 +80,15 @@ public class MenuPerros {
                         }
                     }while(opcion < 0 || opcion >= Edad.values().length);
 
+                    String op;
+                    do{
                     System.out.println("¿Estás cargando un ingreso de hoy? S/N");
-                    String op = entradaTeclado.next();
+                    op = entradaTeclado.next();
+                    entradaTeclado.nextLine();
+                        if (!op.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
+                            System.out.println("Respuesta inválida, ingresá solo letras.");}
+                    } while (!op.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+"));
+
                     perrito.setFechaEntrada(LocalDate.now());
 
                     if(!(op.equalsIgnoreCase("S") || op.equalsIgnoreCase("Sí") || op.equalsIgnoreCase("si")))
@@ -232,11 +239,12 @@ public class MenuPerros {
                     try{
                         opcion = entradaTeclado.nextInt();
                     }catch (InputMismatchException e){
-                        opcion = 0;
+                        opcion = -1;
                         entradaTeclado.next();
                     }
                     try{
                         gestor.quitarDelRegistro(opcion);
+                        System.out.println("Perrito quitado del sistema.");
                     }catch (ElementoNoEncontradoExcepcion e){
                         System.out.println("No puedes quitar al perrito, porque no existe :o ");
                     }catch (AccesoDatosException e) {
@@ -250,6 +258,6 @@ public class MenuPerros {
                     System.out.println("Tenés que ingresar una opción válida  (¬_¬)");
                     break;
             }
-        }while (opcion > 3 || opcion < 0);
+        }while (opcion != 0);
     }
 }

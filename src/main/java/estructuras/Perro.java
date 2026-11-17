@@ -103,4 +103,5 @@ public class Perro extends Animal implements Adoptable, Identificable {
     public void marcarComoNoDisponible() {
         setEstado(EstadoAnimal.ADOPTADO);
     }
+
 }

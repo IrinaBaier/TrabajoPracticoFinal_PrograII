@@ -18,6 +18,8 @@ public class MenuGeneral {
         System.out.println("     //     ||                  ||      //");
         System.out.println("     |\\     |\\                  /|     /|");
 
+        System.out.println(" Baier Irina, Márquez Estefanía, Orellano Pablo ");
+
 
 
         do{

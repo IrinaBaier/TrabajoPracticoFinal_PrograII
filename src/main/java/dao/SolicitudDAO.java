@@ -36,8 +36,7 @@ public class SolicitudDAO implements CRUD<Solicitud> {
             }
             ps.executeUpdate();
         } catch (SQLException e) {
-            throw new AccesoDatosException(
-                    "Error al cargar Solicitud " + objeto.getID(), e);
+            throw new AccesoDatosException( "Error al cargar Solicitud " + objeto.getID(), e);
         }
         }
 

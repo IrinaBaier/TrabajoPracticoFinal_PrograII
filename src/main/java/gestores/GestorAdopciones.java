@@ -4,9 +4,11 @@ import dao.AdopcionDAO;
 import dao.RegistroSolicitudDAO;
 import enums.EstadoAnimal;
 import estructuras.Adopcion;
+import estructuras.Adoptante;
 import estructuras.Perro;
 import estructuras.Solicitud;
 import excepciones.AccesoDatosException;
+import excepciones.DatoInvalidoException;
 import excepciones.ElementoDuplicadoExcepcion;
 import excepciones.ElementoNoEncontradoExcepcion;
 import interfaces.CRUD;
@@ -19,7 +21,7 @@ public class GestorAdopciones extends Gestor <Adopcion>{
     private final CRUD<Adopcion> dao = new AdopcionDAO();
     private final RegistroSolicitudDAO registroSolicitudDAO = new RegistroSolicitudDAO();
     private final GestorPerros gestorPerros = new GestorPerros(Perro.class);
-
+    private final GestorAdoptante gestorAdoptante = new GestorAdoptante(Adoptante.class);
 
     public GestorAdopciones(Class<Adopcion> tipoEntidad) {
         super(tipoEntidad);
@@ -27,16 +29,20 @@ public class GestorAdopciones extends Gestor <Adopcion>{
 
     public void registrarAdopcion(Adopcion nuevaAdopcion) throws ElementoDuplicadoExcepcion, ElementoNoEncontradoExcepcion {
         Perro perro = gestorPerros.buscarEnBD(nuevaAdopcion.getIdPerro());
-        agregar(nuevaAdopcion);
+        gestorAdoptante.buscarEnBD(nuevaAdopcion.getIdAoptante());
+        if(!perro.puedeSerAdoptado()){
+            throw new DatoInvalidoException("el perro no esta disponible (estado: " + perro.getEstado() + ")");}
         guardarEnBD(nuevaAdopcion);
-        perro.setEstado(EstadoAnimal.ADOPTADO);
+        agregar(nuevaAdopcion);
+        perro.marcarComoNoDisponible();
         gestorPerros.actualizarEnBD(perro.getId(), perro);
-        gestorPerros.modificar(perro.getId(), perro);
+
     }
+// metodo pensado para en el futuro de ser necesario mostrar el historial de adopciones con sus adoptantes
 
     public List<Adopcion> obtenerHistorialAdoptante(int idAdoptante) throws AccesoDatosException {
         List<Adopcion> historial = new ArrayList<>();
-        for (Adopcion adopcion : listar()) {
+        for (Adopcion adopcion : listarDesdeBD()) {
             if (adopcion.getIdAoptante() == idAdoptante) {
                 historial.add(adopcion); }
         }
