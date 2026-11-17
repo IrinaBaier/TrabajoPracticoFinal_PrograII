@@ -312,7 +312,12 @@ public class MenuAdopciones {
                         System.out.println("Hemos registrado la observación");
                     } catch (ElementoDuplicadoExcepcion e) {
                         System.out.println("ya registraste esta observación");
+                    } catch (AccesoDatosException e) {
+                        System.out.println("Error " + e.getMessage());
+                    }catch (ElementoNoEncontradoExcepcion e){
+                        System.out.println("No es posible registrar una observación sobre una adopción inexistente");
                     }
+                    break;
                 case 0:
                     System.out.println("Nos vemos!! :D");
                     break;

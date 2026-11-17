@@ -1,5 +1,6 @@
 package gestores;
 
+import estructuras.Adopcion;
 import estructuras.Observacion;
 import excepciones.AccesoDatosException;
 import excepciones.DatoInvalidoException;
@@ -19,10 +20,16 @@ public class GestorObservaciones extends Gestor<Observacion>  {
         super(tipoEntidad);
     }
 
-    public void registrarObservacion(Observacion observacion) throws AccesoDatosException, ElementoDuplicadoExcepcion {
+    GestorAdopciones gestorAdopciones = new GestorAdopciones(Adopcion.class);
+
+    public void registrarObservacion(Observacion observacion) throws AccesoDatosException, ElementoDuplicadoExcepcion, ElementoNoEncontradoExcepcion {
         if(observacion == null){
             throw new DatoInvalidoException("La observación no puede ser nula");
         }
+
+        Adopcion a = gestorAdopciones.buscarEnBD(observacion.getIdAdopcion());
+
+
         dao.crear(observacion);
 
         agregar(observacion);
