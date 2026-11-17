@@ -56,6 +56,19 @@ public class Gestor<T extends Identificable> {
         return elementos.size();
     }
 
+    public void modificar(int id, T nuevoObjeto) throws ElementoNoEncontradoExcepcion {
 
+        if (nuevoObjeto == null) {
+            throw new DatoInvalidoException(
+                    "No se puede modificar " + tipoEntidad.getSimpleName() + " con un objeto nulo"
+            );
+        }
+
+        T elementoExistente = buscar(id);
+
+        int indice = elementos.indexOf(elementoExistente);
+
+        elementos.set(indice, nuevoObjeto);
+    }
 }
 

@@ -4,7 +4,6 @@ import dao.AdopcionDAO;
 import dao.RegistroSolicitudDAO;
 import enums.EstadoAnimal;
 import estructuras.Adopcion;
-import estructuras.Adoptante;
 import estructuras.Perro;
 import estructuras.Solicitud;
 import excepciones.AccesoDatosException;
@@ -12,7 +11,6 @@ import excepciones.ElementoDuplicadoExcepcion;
 import excepciones.ElementoNoEncontradoExcepcion;
 import interfaces.CRUD;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,19 +18,20 @@ public class GestorAdopciones extends Gestor <Adopcion>{
 
     private final CRUD<Adopcion> dao = new AdopcionDAO();
     private final RegistroSolicitudDAO registroSolicitudDAO = new RegistroSolicitudDAO();
+    private final GestorPerros gestorPerros = new GestorPerros(Perro.class);
 
 
     public GestorAdopciones(Class<Adopcion> tipoEntidad) {
         super(tipoEntidad);
     }
-    GestorPerros gestorPerros =  new GestorPerros(Perro.class);
-
 
     public void registrarAdopcion(Adopcion nuevaAdopcion) throws ElementoDuplicadoExcepcion, ElementoNoEncontradoExcepcion {
         Perro perro = gestorPerros.buscarEnBD(nuevaAdopcion.getIdPerro());
         agregar(nuevaAdopcion);
         guardarEnBD(nuevaAdopcion);
         perro.setEstado(EstadoAnimal.ADOPTADO);
+        gestorPerros.actualizarEnBD(perro.getId(), perro);
+        gestorPerros.modificar(perro.getId(), perro);
     }
 
     public List<Adopcion> obtenerHistorialAdoptante(int idAdoptante) throws AccesoDatosException {
